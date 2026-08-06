@@ -10,12 +10,30 @@ export interface Manipulator {
   to?: To[];
   to_after_key_up?: To[];
   to_if_alone?: To[];
+  to_if_held_down?: To[];
+  to_delayed_action?: ToDelayedAction;
   parameters?: Parameters;
   conditions?: Conditions[];
 }
 
+export interface ToDelayedAction {
+  to_if_invoked?: To[];
+  to_if_canceled?: To[];
+}
+
+export interface VirtualHidKeyboard {
+  keyboard_type_v2?: "ansi" | "iso" | "jis";
+  country_code?: number;
+  mouse_key_xy_scale?: number;
+  indicate_sticky_modifier_keys_state?: boolean;
+}
+
 export interface Parameters {
   "basic.simultaneous_threshold_milliseconds"?: number;
+  "basic.to_if_alone_timeout_milliseconds"?: number;
+  "basic.to_if_held_down_threshold_milliseconds"?: number;
+  "basic.to_delayed_action_delay_milliseconds"?: number;
+  "mouse_motion_to_scroll.speed"?: number;
 }
 
 type Conditions =
@@ -129,6 +147,7 @@ export interface Modifiers {
 export interface To {
   key_code?: KeyCode;
   modifiers?: ModifiersKeys[];
+  halt?: boolean;
   shell_command?: string;
   set_variable?: {
     name: string;
