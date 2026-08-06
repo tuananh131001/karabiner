@@ -36,7 +36,7 @@ export interface Parameters {
   "mouse_motion_to_scroll.speed"?: number;
 }
 
-type Conditions =
+export type Conditions =
   | FrontMostApplicationCondition
   | DeviceCondition
   | KeybaordTypeCondition
