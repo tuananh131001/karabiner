@@ -1,63 +1,6 @@
 import fs from "fs";
-import {
-  Conditions,
-  KarabinerRules,
-  KeyCode,
-  Parameters,
-  VirtualHidKeyboard,
-} from "./types";
-import {
-  createHyperSubLayers,
-  LayerTrigger,
-  app,
-  open,
-  window,
-  shell,
-} from "./utils";
-
-// Karabiner-MultitouchExtension publishes the number of fingers currently on the
-// trackpad as variables, so a touch can stand in for holding a modifier.
-// The app has to be running for these to ever be non-zero; when it isn't, every
-// variable reads 0 and all of the rules below simply stay inactive.
-// https://karabiner-elements.pqrs.org/docs/json/extra/multitouch-extension/
-//
-// "variable_unless 0" means "at least one finger" — swap it for
-// `{ type: "variable_if", ..., value: 2 }` to demand exactly two fingers if a
-// resting hand keeps arming these layers by accident.
-const trackpadLeftHalf: Conditions = {
-  description: "At least one finger on the left half of the trackpad",
-  type: "variable_unless",
-  name: "multitouch_extension_finger_count_left_half_area",
-  value: 0,
-};
-
-const trackpadRightHalf: Conditions = {
-  description: "At least one finger on the right half of the trackpad",
-  type: "variable_unless",
-  name: "multitouch_extension_finger_count_right_half_area",
-  value: 0,
-};
-
-// Touching the left half of the trackpad acts exactly like holding Caps Lock,
-// so every Hyper sublayer below works without reaching for a modifier
-const trackpadLeftHalfIsHyper: LayerTrigger = {
-  description: "Trackpad left half",
-  conditions: [trackpadLeftHalf],
-};
-
-// Touching the right half opens a second, flat layer: no sublayer key, the
-// commands fire directly. Vim-style navigation to start with.
-const trackpadRightHalfLayer: [KeyCode, KeyCode][] = [
-  ["h", "left_arrow"],
-  ["j", "down_arrow"],
-  ["k", "up_arrow"],
-  ["l", "right_arrow"],
-  // Deliberately not on the home row mod keys (a/s/d/f), which this layer would shadow
-  ["u", "page_up"],
-  ["i", "page_down"],
-  ["y", "home"],
-  ["n", "end"],
-];
+import { KarabinerRules, Parameters, VirtualHidKeyboard } from "./types";
+import { createHyperSubLayers, app, open, window, shell } from "./utils";
 
 const rules: KarabinerRules[] = [
   // Define the Hyper key itself
@@ -97,40 +40,16 @@ const rules: KarabinerRules[] = [
       },
     ],
   },
-  ...createHyperSubLayers(
-    {
-      o: {
-        b: app("Brave Browser"),
-        s: app("Slack"),
-        n: app("Notion"),
-        g: app("Ghostty"),
-        f: app("Finder"),
-        e: app("Microsoft Edge"),
-      },
+  ...createHyperSubLayers({
+    o: {
+      b: app("Brave Browser"),
+      s: app("Slack"),
+      n: app("Notion"),
+      g: app("Ghostty"),
+      f: app("Finder"),
+      e: app("Microsoft Edge"),
     },
-    [trackpadLeftHalfIsHyper]
-  ),
-  // Must come before the home row mods, which claim j/k/l unconditionally and
-  // would otherwise win — Karabiner takes the first matching manipulator
-  {
-    description: "Trackpad right half -> navigation layer",
-    manipulators: trackpadRightHalfLayer.map(([from_key, to_key]) => ({
-      description: `${from_key} -> ${to_key}`,
-      type: "basic" as const,
-      from: {
-        key_code: from_key,
-        modifiers: {
-          optional: ["any"],
-        },
-      },
-      to: [
-        {
-          key_code: to_key,
-        },
-      ],
-      conditions: [trackpadRightHalf],
-    })),
-  },
+  }),
   {
     description: "Home row mods - ctrl,lj opt, cmd, shift",
     manipulators: [
