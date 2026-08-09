@@ -755,7 +755,7 @@
                 "to_if_held_down": [
                   {
                     "halt": true,
-                    "key_code": "left_control"
+                    "key_code": "left_command"
                   }
                 ],
                 "type": "basic"
@@ -815,7 +815,7 @@
                 "to_if_held_down": [
                   {
                     "halt": true,
-                    "key_code": "left_command"
+                    "key_code": "left_shift"
                   }
                 ],
                 "type": "basic"
@@ -846,7 +846,7 @@
                 "to_if_held_down": [
                   {
                     "halt": true,
-                    "key_code": "left_shift"
+                    "key_code": "left_control"
                   }
                 ],
                 "type": "basic"
@@ -1364,7 +1364,7 @@
                 "to_if_held_down": [
                   {
                     "halt": true,
-                    "key_code": "left_control"
+                    "key_code": "left_command"
                   }
                 ],
                 "type": "basic"
@@ -1424,7 +1424,7 @@
                 "to_if_held_down": [
                   {
                     "halt": true,
-                    "key_code": "left_command"
+                    "key_code": "left_shift"
                   }
                 ],
                 "type": "basic"
@@ -1454,7 +1454,7 @@
                 "to_if_held_down": [
                   {
                     "halt": true,
-                    "key_code": "left_shift"
+                    "key_code": "left_control"
                   }
                 ],
                 "type": "basic"

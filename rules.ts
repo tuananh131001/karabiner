@@ -293,7 +293,7 @@ const rules: KarabinerRules[] = [
           to_if_invoked: [{ key_code: "vk_none" }],
         },
         to_if_alone: [{ halt: true, key_code: "a" }],
-        to_if_held_down: [{ halt: true, key_code: "left_control" }],
+        to_if_held_down: [{ halt: true, key_code: "left_command" }],
         type: "basic",
       },
       {
@@ -313,7 +313,7 @@ const rules: KarabinerRules[] = [
           to_if_invoked: [{ key_code: "vk_none" }],
         },
         to_if_alone: [{ halt: true, key_code: "d" }],
-        to_if_held_down: [{ halt: true, key_code: "left_command" }],
+        to_if_held_down: [{ halt: true, key_code: "left_shift" }],
         type: "basic",
       },
       {
@@ -323,7 +323,7 @@ const rules: KarabinerRules[] = [
           to_if_invoked: [{ key_code: "vk_none" }],
         },
         to_if_alone: [{ halt: true, key_code: "f" }],
-        to_if_held_down: [{ halt: true, key_code: "left_shift" }],
+        to_if_held_down: [{ halt: true, key_code: "left_control" }],
         type: "basic",
       },
       {
@@ -566,7 +566,7 @@ const rules: KarabinerRules[] = [
           to_if_invoked: [{ key_code: "vk_none" }],
         },
         to_if_alone: [{ halt: true, key_code: "semicolon" }],
-        to_if_held_down: [{ halt: true, key_code: "left_control" }],
+        to_if_held_down: [{ halt: true, key_code: "left_command" }],
         type: "basic",
       },
       {
@@ -586,7 +586,7 @@ const rules: KarabinerRules[] = [
           to_if_invoked: [{ key_code: "vk_none" }],
         },
         to_if_alone: [{ halt: true, key_code: "k" }],
-        to_if_held_down: [{ halt: true, key_code: "left_command" }],
+        to_if_held_down: [{ halt: true, key_code: "left_shift" }],
         type: "basic",
       },
       {
@@ -596,7 +596,7 @@ const rules: KarabinerRules[] = [
           to_if_invoked: [{ key_code: "vk_none" }],
         },
         to_if_alone: [{ halt: true, key_code: "j" }],
-        to_if_held_down: [{ halt: true, key_code: "left_shift" }],
+        to_if_held_down: [{ halt: true, key_code: "left_control" }],
         type: "basic",
       },
     ],
