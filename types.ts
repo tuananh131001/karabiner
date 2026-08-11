@@ -28,6 +28,17 @@ export interface VirtualHidKeyboard {
   indicate_sticky_modifier_keys_state?: boolean;
 }
 
+export interface Device {
+  identifiers: {
+    is_keyboard?: boolean;
+    is_pointing_device?: boolean;
+    vendor_id?: number;
+    product_id?: number;
+  };
+  disable_built_in_keyboard_if_exists?: boolean;
+  ignore_vendor_events?: boolean;
+}
+
 export interface Parameters {
   "basic.simultaneous_threshold_milliseconds"?: number;
   "basic.to_if_alone_timeout_milliseconds"?: number;

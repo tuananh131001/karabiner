@@ -1,5 +1,10 @@
 import fs from "fs";
-import { KarabinerRules, Parameters, VirtualHidKeyboard } from "./types";
+import {
+  Device,
+  KarabinerRules,
+  Parameters,
+  VirtualHidKeyboard,
+} from "./types";
 import { createHyperSubLayers, app, open, window, shell } from "./utils";
 
 const rules: KarabinerRules[] = [
@@ -48,6 +53,34 @@ const rules: KarabinerRules[] = [
       g: app("Ghostty"),
       f: app("Finder"),
       e: app("Microsoft Edge"),
+    },
+    // Navigation layer
+    h: { to: [{ key_code: "left_arrow" }], description: "←" },
+    j: { to: [{ key_code: "down_arrow" }], description: "↓" },
+    k: { to: [{ key_code: "up_arrow" }], description: "↑" },
+    l: { to: [{ key_code: "right_arrow" }], description: "→" },
+    b: {
+      to: [{ key_code: "left_arrow", modifiers: ["left_option"] }],
+      description: "Prev word",
+    },
+    w: {
+      to: [{ key_code: "right_arrow", modifiers: ["left_option"] }],
+      description: "Next word",
+    },
+    "0": {
+      to: [{ key_code: "left_arrow", modifiers: ["left_command"] }],
+      description: "Line start",
+    },
+    "4": {
+      to: [{ key_code: "right_arrow", modifiers: ["left_command"] }],
+      description: "Line end",
+    },
+    u: { to: [{ key_code: "page_up" }], description: "Page up" },
+    d: { to: [{ key_code: "page_down" }], description: "Page down" },
+    x: { to: [{ key_code: "delete_forward" }], description: "Forward delete" },
+    delete_or_backspace: {
+      to: [{ key_code: "delete_or_backspace", modifiers: ["left_command"] }],
+      description: "Delete to line start",
     },
   }),
   {
@@ -615,6 +648,14 @@ const virtual_hid_keyboard: VirtualHidKeyboard = {
   keyboard_type_v2: "ansi",
 };
 
+const devices: Device[] = [
+  {
+    identifiers: { is_keyboard: true, vendor_id: 13364, product_id: 53296 },
+    disable_built_in_keyboard_if_exists: true,
+    ignore_vendor_events: true,
+  },
+];
+
 fs.writeFileSync(
   "karabiner.json",
   JSON.stringify(
@@ -625,6 +666,7 @@ fs.writeFileSync(
       profiles: [
         {
           name: "Default",
+          devices,
           virtual_hid_keyboard,
           complex_modifications: {
             parameters,
