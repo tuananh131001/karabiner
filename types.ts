@@ -36,6 +36,7 @@ export interface Device {
     product_id?: number;
   };
   disable_built_in_keyboard_if_exists?: boolean;
+  ignore?: boolean;
   ignore_vendor_events?: boolean;
 }
 

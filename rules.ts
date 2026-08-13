@@ -2,10 +2,88 @@ import fs from "fs";
 import {
   Device,
   KarabinerRules,
+  Manipulator,
   Parameters,
+  To,
   VirtualHidKeyboard,
 } from "./types";
 import { createHyperSubLayers, app, open, window, shell } from "./utils";
+
+// GACS home row mods: pinky = ⌘, ring = ⌥, middle = ⌃, index = ⇧
+const HOME_ROW_MODS = [
+  { a: "left_command", s: "left_option", d: "left_control", f: "left_shift" },
+  {
+    semicolon: "left_command",
+    l: "left_option",
+    k: "left_control",
+    j: "left_shift",
+  },
+] as const;
+
+function homeRowMods(): KarabinerRules {
+  const manipulators: Manipulator[] = [];
+
+  for (const hand of HOME_ROW_MODS) {
+    const keys = Object.keys(hand) as (keyof typeof hand)[];
+    const mod = (key: string) => hand[key as keyof typeof hand];
+
+    const held = (combo: string[]): To[] => {
+      const [first, ...rest] = combo.map(mod);
+      return [rest.length ? { key_code: first, modifiers: rest } : { key_code: first }];
+    };
+
+    // All four fingers, then every triple, then every pair, then singles.
+    // Karabiner matches top-down, so the widest combos have to come first.
+    manipulators.push({
+      from: { simultaneous: keys.map((key_code) => ({ key_code })) },
+      to_if_held_down: held(keys),
+      type: "basic",
+    });
+
+    for (const dropped of keys) {
+      const combo = keys.filter((key) => key !== dropped);
+      manipulators.push({
+        from: { simultaneous: combo.map((key_code) => ({ key_code })) },
+        to_if_held_down: held(combo),
+        type: "basic",
+      });
+    }
+
+    for (const first of keys) {
+      for (const second of keys) {
+        if (first === second) continue;
+        manipulators.push({
+          from: {
+            simultaneous: [{ key_code: first }, { key_code: second }],
+            simultaneous_options: { key_down_order: "strict" },
+          },
+          to_if_alone: [{ key_code: first }, { key_code: second }],
+          to_if_held_down: held([first, second]),
+          type: "basic",
+        });
+      }
+    }
+
+    for (const key of keys) {
+      manipulators.push({
+        from: { key_code: key },
+        to_delayed_action: {
+          to_if_canceled: [{ key_code: key }],
+          to_if_invoked: [{ key_code: "vk_none" }],
+        },
+        to_if_alone: [{ halt: true, key_code: key }],
+        to_if_held_down: [{ halt: true, key_code: mod(key) }],
+        type: "basic",
+      });
+    }
+  }
+
+  return {
+    description: "Home row mods (GACS) - ⌘ ⌥ ⌃ ⇧ on asdf / ;lkj",
+    manipulators,
+  };
+}
+
 
 const rules: KarabinerRules[] = [
   // Define the Hyper key itself
@@ -83,557 +161,7 @@ const rules: KarabinerRules[] = [
       description: "Delete to line start",
     },
   }),
-  {
-    description: "Home row mods - ctrl,lj opt, cmd, shift",
-    manipulators: [
-      {
-        from: {
-          simultaneous: [
-            { key_code: "a" },
-            { key_code: "s" },
-            { key_code: "d" },
-            { key_code: "f" },
-          ],
-        },
-        to_if_held_down: [
-          {
-            key_code: "left_shift",
-            modifiers: ["left_command", "left_option", "left_control"],
-          },
-        ],
-        type: "basic",
-      },
-      {
-        from: {
-          simultaneous: [
-            { key_code: "a" },
-            { key_code: "s" },
-            { key_code: "d" },
-          ],
-        },
-        to_if_held_down: [
-          {
-            key_code: "left_control",
-            modifiers: ["left_command", "left_option"],
-          },
-        ],
-        type: "basic",
-      },
-      {
-        from: {
-          simultaneous: [
-            { key_code: "a" },
-            { key_code: "d" },
-            { key_code: "f" },
-          ],
-        },
-        to_if_held_down: [
-          {
-            key_code: "left_shift",
-            modifiers: ["left_command", "left_control"],
-          },
-        ],
-        type: "basic",
-      },
-      {
-        from: {
-          simultaneous: [
-            { key_code: "s" },
-            { key_code: "d" },
-            { key_code: "f" },
-          ],
-        },
-        to_if_held_down: [
-          {
-            key_code: "left_option",
-            modifiers: ["left_command", "left_shift"],
-          },
-        ],
-        type: "basic",
-      },
-      {
-        from: {
-          simultaneous: [{ key_code: "a" }, { key_code: "s" }],
-          simultaneous_options: { key_down_order: "strict" },
-        },
-        to_if_alone: [{ key_code: "a" }, { key_code: "s" }],
-        to_if_held_down: [
-          {
-            key_code: "left_control",
-            modifiers: ["left_option"],
-          },
-        ],
-        type: "basic",
-      },
-      {
-        from: {
-          simultaneous: [{ key_code: "s" }, { key_code: "a" }],
-          simultaneous_options: { key_down_order: "strict" },
-        },
-        to_if_alone: [{ key_code: "s" }, { key_code: "a" }],
-        to_if_held_down: [
-          {
-            key_code: "left_control",
-            modifiers: ["left_option"],
-          },
-        ],
-        type: "basic",
-      },
-      {
-        from: {
-          simultaneous: [{ key_code: "a" }, { key_code: "d" }],
-          simultaneous_options: { key_down_order: "strict" },
-        },
-        to_if_alone: [{ key_code: "a" }, { key_code: "d" }],
-        to_if_held_down: [
-          {
-            key_code: "left_control",
-            modifiers: ["left_command"],
-          },
-        ],
-        type: "basic",
-      },
-      {
-        from: {
-          simultaneous: [{ key_code: "d" }, { key_code: "a" }],
-          simultaneous_options: { key_down_order: "strict" },
-        },
-        to_if_alone: [{ key_code: "d" }, { key_code: "a" }],
-        to_if_held_down: [
-          {
-            key_code: "left_control",
-            modifiers: ["left_command"],
-          },
-        ],
-        type: "basic",
-      },
-      {
-        from: {
-          simultaneous: [{ key_code: "a" }, { key_code: "f" }],
-          simultaneous_options: { key_down_order: "strict" },
-        },
-        to_if_alone: [{ key_code: "a" }, { key_code: "f" }],
-        to_if_held_down: [
-          {
-            key_code: "left_control",
-            modifiers: ["left_shift"],
-          },
-        ],
-        type: "basic",
-      },
-      {
-        from: {
-          simultaneous: [{ key_code: "f" }, { key_code: "a" }],
-          simultaneous_options: { key_down_order: "strict" },
-        },
-        to_if_alone: [{ key_code: "f" }, { key_code: "a" }],
-        to_if_held_down: [
-          {
-            key_code: "left_control",
-            modifiers: ["left_shift"],
-          },
-        ],
-        type: "basic",
-      },
-      {
-        from: {
-          simultaneous: [{ key_code: "s" }, { key_code: "d" }],
-          simultaneous_options: { key_down_order: "strict" },
-        },
-        to_if_alone: [{ key_code: "s" }, { key_code: "d" }],
-        to_if_held_down: [
-          {
-            key_code: "left_option",
-            modifiers: ["left_command"],
-          },
-        ],
-        type: "basic",
-      },
-      {
-        from: {
-          simultaneous: [{ key_code: "d" }, { key_code: "s" }],
-          simultaneous_options: { key_down_order: "strict" },
-        },
-        to_if_alone: [{ key_code: "d" }, { key_code: "s" }],
-        to_if_held_down: [
-          {
-            key_code: "left_option",
-            modifiers: ["left_command"],
-          },
-        ],
-        type: "basic",
-      },
-      {
-        from: {
-          simultaneous: [{ key_code: "s" }, { key_code: "f" }],
-          simultaneous_options: { key_down_order: "strict" },
-        },
-        to_if_alone: [{ key_code: "s" }, { key_code: "f" }],
-        to_if_held_down: [
-          {
-            key_code: "left_option",
-            modifiers: ["left_shift"],
-          },
-        ],
-        type: "basic",
-      },
-      {
-        from: {
-          simultaneous: [{ key_code: "f" }, { key_code: "s" }],
-          simultaneous_options: { key_down_order: "strict" },
-        },
-        to_if_alone: [{ key_code: "f" }, { key_code: "s" }],
-        to_if_held_down: [
-          {
-            key_code: "left_option",
-            modifiers: ["left_shift"],
-          },
-        ],
-        type: "basic",
-      },
-      {
-        from: {
-          simultaneous: [{ key_code: "d" }, { key_code: "f" }],
-          simultaneous_options: { key_down_order: "strict" },
-        },
-        to_if_alone: [{ key_code: "d" }, { key_code: "f" }],
-        to_if_held_down: [
-          {
-            key_code: "left_command",
-            modifiers: ["left_shift"],
-          },
-        ],
-        type: "basic",
-      },
-      {
-        from: {
-          simultaneous: [{ key_code: "f" }, { key_code: "d" }],
-          simultaneous_options: { key_down_order: "strict" },
-        },
-        to_if_alone: [{ key_code: "f" }, { key_code: "d" }],
-        to_if_held_down: [
-          {
-            key_code: "left_command",
-            modifiers: ["left_shift"],
-          },
-        ],
-        type: "basic",
-      },
-      {
-        from: { key_code: "a" },
-        to_delayed_action: {
-          to_if_canceled: [{ key_code: "a" }],
-          to_if_invoked: [{ key_code: "vk_none" }],
-        },
-        to_if_alone: [{ halt: true, key_code: "a" }],
-        to_if_held_down: [{ halt: true, key_code: "left_command" }],
-        type: "basic",
-      },
-      {
-        from: { key_code: "s" },
-        to_delayed_action: {
-          to_if_canceled: [{ key_code: "s" }],
-          to_if_invoked: [{ key_code: "vk_none" }],
-        },
-        to_if_alone: [{ halt: true, key_code: "s" }],
-        to_if_held_down: [{ halt: true, key_code: "left_option" }],
-        type: "basic",
-      },
-      {
-        from: { key_code: "d" },
-        to_delayed_action: {
-          to_if_canceled: [{ key_code: "d" }],
-          to_if_invoked: [{ key_code: "vk_none" }],
-        },
-        to_if_alone: [{ halt: true, key_code: "d" }],
-        to_if_held_down: [{ halt: true, key_code: "left_shift" }],
-        type: "basic",
-      },
-      {
-        from: { key_code: "f" },
-        to_delayed_action: {
-          to_if_canceled: [{ halt: true, key_code: "f" }],
-          to_if_invoked: [{ key_code: "vk_none" }],
-        },
-        to_if_alone: [{ halt: true, key_code: "f" }],
-        to_if_held_down: [{ halt: true, key_code: "left_control" }],
-        type: "basic",
-      },
-      {
-        from: {
-          simultaneous: [
-            { key_code: "j" },
-            { key_code: "k" },
-            { key_code: "l" },
-            { key_code: "semicolon" },
-          ],
-        },
-        to_if_held_down: [
-          {
-            key_code: "left_shift",
-            modifiers: ["left_command", "left_option", "left_control"],
-          },
-        ],
-        type: "basic",
-      },
-      {
-        from: {
-          simultaneous: [
-            { key_code: "semicolon" },
-            { key_code: "l" },
-            { key_code: "k" },
-          ],
-        },
-        to_if_held_down: [
-          {
-            key_code: "left_shift",
-            modifiers: ["left_option", "left_control"],
-          },
-        ],
-        type: "basic",
-      },
-      {
-        from: {
-          simultaneous: [
-            { key_code: "semicolon" },
-            { key_code: "k" },
-            { key_code: "j" },
-          ],
-        },
-        to_if_held_down: [
-          {
-            key_code: "left_shift",
-            modifiers: ["left_command", "left_option"],
-          },
-        ],
-        type: "basic",
-      },
-      {
-        from: {
-          simultaneous: [
-            { key_code: "l" },
-            { key_code: "k" },
-            { key_code: "j" },
-          ],
-        },
-        to_if_held_down: [
-          {
-            key_code: "left_control",
-            modifiers: ["left_command", "left_option"],
-          },
-        ],
-        type: "basic",
-      },
-      {
-        from: {
-          simultaneous: [{ key_code: "semicolon" }, { key_code: "l" }],
-          simultaneous_options: { key_down_order: "strict" },
-        },
-        to_if_alone: [{ key_code: "semicolon" }, { key_code: "l" }],
-        to_if_held_down: [
-          {
-            key_code: "left_control",
-            modifiers: ["left_option"],
-          },
-        ],
-        type: "basic",
-      },
-      {
-        from: {
-          simultaneous: [{ key_code: "l" }, { key_code: "semicolon" }],
-          simultaneous_options: { key_down_order: "strict" },
-        },
-        to_if_alone: [{ key_code: "l" }, { key_code: "semicolon" }],
-        to_if_held_down: [
-          {
-            key_code: "left_control",
-            modifiers: ["left_option"],
-          },
-        ],
-        type: "basic",
-      },
-      {
-        from: {
-          simultaneous: [{ key_code: "semicolon" }, { key_code: "k" }],
-          simultaneous_options: { key_down_order: "strict" },
-        },
-        to_if_alone: [{ key_code: "semicolon" }, { key_code: "k" }],
-        to_if_held_down: [
-          {
-            key_code: "left_control",
-            modifiers: ["left_command"],
-          },
-        ],
-        type: "basic",
-      },
-      {
-        from: {
-          simultaneous: [{ key_code: "k" }, { key_code: "semicolon" }],
-          simultaneous_options: { key_down_order: "strict" },
-        },
-        to_if_alone: [{ key_code: "k" }, { key_code: "semicolon" }],
-        to_if_held_down: [
-          {
-            key_code: "left_control",
-            modifiers: ["left_command"],
-          },
-        ],
-        type: "basic",
-      },
-      {
-        from: {
-          simultaneous: [{ key_code: "semicolon" }, { key_code: "j" }],
-          simultaneous_options: { key_down_order: "strict" },
-        },
-        to_if_alone: [{ key_code: "semicolon" }, { key_code: "j" }],
-        to_if_held_down: [
-          {
-            key_code: "left_control",
-            modifiers: ["left_shift"],
-          },
-        ],
-        type: "basic",
-      },
-      {
-        from: {
-          simultaneous: [{ key_code: "j" }, { key_code: "semicolon" }],
-          simultaneous_options: { key_down_order: "strict" },
-        },
-        to_if_alone: [{ key_code: "j" }, { key_code: "semicolon" }],
-        to_if_held_down: [
-          {
-            key_code: "left_control",
-            modifiers: ["left_shift"],
-          },
-        ],
-        type: "basic",
-      },
-      {
-        from: {
-          simultaneous: [{ key_code: "l" }, { key_code: "k" }],
-          simultaneous_options: { key_down_order: "strict" },
-        },
-        to_if_alone: [{ key_code: "l" }, { key_code: "k" }],
-        to_if_held_down: [
-          {
-            key_code: "left_option",
-            modifiers: ["left_command"],
-          },
-        ],
-        type: "basic",
-      },
-      {
-        from: {
-          simultaneous: [{ key_code: "k" }, { key_code: "l" }],
-          simultaneous_options: { key_down_order: "strict" },
-        },
-        to_if_alone: [{ key_code: "k" }, { key_code: "l" }],
-        to_if_held_down: [
-          {
-            key_code: "left_option",
-            modifiers: ["left_command"],
-          },
-        ],
-        type: "basic",
-      },
-      {
-        from: {
-          simultaneous: [{ key_code: "l" }, { key_code: "j" }],
-          simultaneous_options: { key_down_order: "strict" },
-        },
-        to_if_alone: [{ key_code: "l" }, { key_code: "j" }],
-        to_if_held_down: [
-          {
-            key_code: "left_option",
-            modifiers: ["left_shift"],
-          },
-        ],
-        type: "basic",
-      },
-      {
-        from: {
-          simultaneous: [{ key_code: "j" }, { key_code: "l" }],
-          simultaneous_options: { key_down_order: "strict" },
-        },
-        to_if_alone: [{ key_code: "j" }, { key_code: "l" }],
-        to_if_held_down: [
-          {
-            key_code: "left_option",
-            modifiers: ["left_shift"],
-          },
-        ],
-        type: "basic",
-      },
-      {
-        from: {
-          simultaneous: [{ key_code: "k" }, { key_code: "j" }],
-          simultaneous_options: { key_down_order: "strict" },
-        },
-        to_if_alone: [{ key_code: "k" }, { key_code: "j" }],
-        to_if_held_down: [
-          {
-            key_code: "left_command",
-            modifiers: ["left_shift"],
-          },
-        ],
-        type: "basic",
-      },
-      {
-        from: {
-          simultaneous: [{ key_code: "j" }, { key_code: "k" }],
-          simultaneous_options: { key_down_order: "strict" },
-        },
-        to_if_alone: [{ key_code: "j" }, { key_code: "k" }],
-        to_if_held_down: [
-          {
-            key_code: "left_command",
-            modifiers: ["left_shift"],
-          },
-        ],
-        type: "basic",
-      },
-      {
-        from: { key_code: "semicolon" },
-        to_delayed_action: {
-          to_if_canceled: [{ key_code: "semicolon" }],
-          to_if_invoked: [{ key_code: "vk_none" }],
-        },
-        to_if_alone: [{ halt: true, key_code: "semicolon" }],
-        to_if_held_down: [{ halt: true, key_code: "left_command" }],
-        type: "basic",
-      },
-      {
-        from: { key_code: "l" },
-        to_delayed_action: {
-          to_if_canceled: [{ key_code: "l" }],
-          to_if_invoked: [{ key_code: "vk_none" }],
-        },
-        to_if_alone: [{ halt: true, key_code: "l" }],
-        to_if_held_down: [{ halt: true, key_code: "left_option" }],
-        type: "basic",
-      },
-      {
-        from: { key_code: "k" },
-        to_delayed_action: {
-          to_if_canceled: [{ key_code: "k" }],
-          to_if_invoked: [{ key_code: "vk_none" }],
-        },
-        to_if_alone: [{ halt: true, key_code: "k" }],
-        to_if_held_down: [{ halt: true, key_code: "left_shift" }],
-        type: "basic",
-      },
-      {
-        from: { key_code: "j" },
-        to_delayed_action: {
-          to_if_canceled: [{ key_code: "j" }],
-          to_if_invoked: [{ key_code: "vk_none" }],
-        },
-        to_if_alone: [{ halt: true, key_code: "j" }],
-        to_if_held_down: [{ halt: true, key_code: "left_control" }],
-        type: "basic",
-      },
-    ],
-  },
+  homeRowMods(),
 ];
 
 const parameters: Parameters = {
@@ -652,6 +180,22 @@ const devices: Device[] = [
   {
     identifiers: { is_keyboard: true, vendor_id: 13364, product_id: 53296 },
     disable_built_in_keyboard_if_exists: true,
+    ignore_vendor_events: true,
+  },
+  {
+    identifiers: { is_keyboard: true, vendor_id: 14000, product_id: 12302 },
+    disable_built_in_keyboard_if_exists: true,
+    ignore_vendor_events: true,
+  },
+  {
+    identifiers: {
+      is_keyboard: true,
+      is_pointing_device: true,
+      vendor_id: 14000,
+      product_id: 12292,
+    },
+    disable_built_in_keyboard_if_exists: true,
+    ignore: false,
     ignore_vendor_events: true,
   },
 ];
