@@ -1,2751 +1,1327 @@
 {
-  "global": {
-    "show_in_menu_bar": false
-  },
-  "profiles": [
-    {
-      "name": "Default",
-      "devices": [
+    "global": { "show_in_menu_bar": false },
+    "profiles": [
         {
-          "identifiers": {
-            "is_keyboard": true,
-            "vendor_id": 13364,
-            "product_id": 53296
-          },
-          "disable_built_in_keyboard_if_exists": true,
-          "ignore_vendor_events": true
-        },
-        {
-          "identifiers": {
-            "is_keyboard": true,
-            "vendor_id": 14000,
-            "product_id": 12302
-          },
-          "disable_built_in_keyboard_if_exists": true,
-          "ignore_vendor_events": true
-        },
-        {
-          "identifiers": {
-            "is_keyboard": true,
-            "is_pointing_device": true,
-            "vendor_id": 14000,
-            "product_id": 12292
-          },
-          "disable_built_in_keyboard_if_exists": true,
-          "ignore": false,
-          "ignore_vendor_events": true
+            "complex_modifications": {
+                "parameters": {
+                    "basic.simultaneous_threshold_milliseconds": 100,
+                    "basic.to_delayed_action_delay_milliseconds": 200,
+                    "basic.to_if_alone_timeout_milliseconds": 300,
+                    "basic.to_if_held_down_threshold_milliseconds": 125
+                },
+                "rules": [
+                    {
+                        "description": "Hyper Key (⌃⌥⇧⌘)",
+                        "manipulators": [
+                            {
+                                "description": "Caps Lock -> Hyper Key",
+                                "from": {
+                                    "key_code": "caps_lock",
+                                    "modifiers": { "optional": ["any"] }
+                                },
+                                "to": [
+                                    {
+                                        "set_variable": {
+                                            "name": "hyper",
+                                            "value": 1
+                                        }
+                                    }
+                                ],
+                                "to_after_key_up": [
+                                    {
+                                        "set_variable": {
+                                            "name": "hyper",
+                                            "value": 0
+                                        }
+                                    }
+                                ],
+                                "to_if_alone": [{ "key_code": "escape" }],
+                                "type": "basic"
+                            }
+                        ]
+                    },
+                    {
+                        "description": "Hyper Key + 0",
+                        "manipulators": [
+                            {
+                                "conditions": [
+                                    {
+                                        "name": "hyper",
+                                        "type": "variable_if",
+                                        "value": 1
+                                    },
+                                    {
+                                        "name": "hyper_sublayer_0",
+                                        "type": "variable_if",
+                                        "value": 0
+                                    },
+                                    {
+                                        "name": "hyper_sublayer_4",
+                                        "type": "variable_if",
+                                        "value": 0
+                                    },
+                                    {
+                                        "name": "hyper_sublayer_o",
+                                        "type": "variable_if",
+                                        "value": 0
+                                    },
+                                    {
+                                        "name": "hyper_sublayer_h",
+                                        "type": "variable_if",
+                                        "value": 0
+                                    },
+                                    {
+                                        "name": "hyper_sublayer_j",
+                                        "type": "variable_if",
+                                        "value": 0
+                                    },
+                                    {
+                                        "name": "hyper_sublayer_k",
+                                        "type": "variable_if",
+                                        "value": 0
+                                    },
+                                    {
+                                        "name": "hyper_sublayer_l",
+                                        "type": "variable_if",
+                                        "value": 0
+                                    },
+                                    {
+                                        "name": "hyper_sublayer_b",
+                                        "type": "variable_if",
+                                        "value": 0
+                                    },
+                                    {
+                                        "name": "hyper_sublayer_w",
+                                        "type": "variable_if",
+                                        "value": 0
+                                    },
+                                    {
+                                        "name": "hyper_sublayer_u",
+                                        "type": "variable_if",
+                                        "value": 0
+                                    },
+                                    {
+                                        "name": "hyper_sublayer_d",
+                                        "type": "variable_if",
+                                        "value": 0
+                                    },
+                                    {
+                                        "name": "hyper_sublayer_x",
+                                        "type": "variable_if",
+                                        "value": 0
+                                    },
+                                    {
+                                        "name": "hyper_sublayer_delete_or_backspace",
+                                        "type": "variable_if",
+                                        "value": 0
+                                    }
+                                ],
+                                "description": "Line start",
+                                "from": {
+                                    "key_code": "0",
+                                    "modifiers": { "optional": ["any"] }
+                                },
+                                "to": [
+                                    {
+                                        "key_code": "left_arrow",
+                                        "modifiers": ["left_command"]
+                                    }
+                                ],
+                                "type": "basic"
+                            }
+                        ]
+                    },
+                    {
+                        "description": "Hyper Key + 4",
+                        "manipulators": [
+                            {
+                                "conditions": [
+                                    {
+                                        "name": "hyper",
+                                        "type": "variable_if",
+                                        "value": 1
+                                    },
+                                    {
+                                        "name": "hyper_sublayer_0",
+                                        "type": "variable_if",
+                                        "value": 0
+                                    },
+                                    {
+                                        "name": "hyper_sublayer_4",
+                                        "type": "variable_if",
+                                        "value": 0
+                                    },
+                                    {
+                                        "name": "hyper_sublayer_o",
+                                        "type": "variable_if",
+                                        "value": 0
+                                    },
+                                    {
+                                        "name": "hyper_sublayer_h",
+                                        "type": "variable_if",
+                                        "value": 0
+                                    },
+                                    {
+                                        "name": "hyper_sublayer_j",
+                                        "type": "variable_if",
+                                        "value": 0
+                                    },
+                                    {
+                                        "name": "hyper_sublayer_k",
+                                        "type": "variable_if",
+                                        "value": 0
+                                    },
+                                    {
+                                        "name": "hyper_sublayer_l",
+                                        "type": "variable_if",
+                                        "value": 0
+                                    },
+                                    {
+                                        "name": "hyper_sublayer_b",
+                                        "type": "variable_if",
+                                        "value": 0
+                                    },
+                                    {
+                                        "name": "hyper_sublayer_w",
+                                        "type": "variable_if",
+                                        "value": 0
+                                    },
+                                    {
+                                        "name": "hyper_sublayer_u",
+                                        "type": "variable_if",
+                                        "value": 0
+                                    },
+                                    {
+                                        "name": "hyper_sublayer_d",
+                                        "type": "variable_if",
+                                        "value": 0
+                                    },
+                                    {
+                                        "name": "hyper_sublayer_x",
+                                        "type": "variable_if",
+                                        "value": 0
+                                    },
+                                    {
+                                        "name": "hyper_sublayer_delete_or_backspace",
+                                        "type": "variable_if",
+                                        "value": 0
+                                    }
+                                ],
+                                "description": "Line end",
+                                "from": {
+                                    "key_code": "4",
+                                    "modifiers": { "optional": ["any"] }
+                                },
+                                "to": [
+                                    {
+                                        "key_code": "right_arrow",
+                                        "modifiers": ["left_command"]
+                                    }
+                                ],
+                                "type": "basic"
+                            }
+                        ]
+                    },
+                    {
+                        "description": "Hyper Key sublayer \"o\"",
+                        "manipulators": [
+                            {
+                                "conditions": [
+                                    {
+                                        "name": "hyper_sublayer_0",
+                                        "type": "variable_if",
+                                        "value": 0
+                                    },
+                                    {
+                                        "name": "hyper_sublayer_4",
+                                        "type": "variable_if",
+                                        "value": 0
+                                    },
+                                    {
+                                        "name": "hyper_sublayer_h",
+                                        "type": "variable_if",
+                                        "value": 0
+                                    },
+                                    {
+                                        "name": "hyper_sublayer_j",
+                                        "type": "variable_if",
+                                        "value": 0
+                                    },
+                                    {
+                                        "name": "hyper_sublayer_k",
+                                        "type": "variable_if",
+                                        "value": 0
+                                    },
+                                    {
+                                        "name": "hyper_sublayer_l",
+                                        "type": "variable_if",
+                                        "value": 0
+                                    },
+                                    {
+                                        "name": "hyper_sublayer_b",
+                                        "type": "variable_if",
+                                        "value": 0
+                                    },
+                                    {
+                                        "name": "hyper_sublayer_w",
+                                        "type": "variable_if",
+                                        "value": 0
+                                    },
+                                    {
+                                        "name": "hyper_sublayer_u",
+                                        "type": "variable_if",
+                                        "value": 0
+                                    },
+                                    {
+                                        "name": "hyper_sublayer_d",
+                                        "type": "variable_if",
+                                        "value": 0
+                                    },
+                                    {
+                                        "name": "hyper_sublayer_x",
+                                        "type": "variable_if",
+                                        "value": 0
+                                    },
+                                    {
+                                        "name": "hyper_sublayer_delete_or_backspace",
+                                        "type": "variable_if",
+                                        "value": 0
+                                    },
+                                    {
+                                        "name": "hyper",
+                                        "type": "variable_if",
+                                        "value": 1
+                                    }
+                                ],
+                                "description": "Toggle Hyper sublayer o",
+                                "from": {
+                                    "key_code": "o",
+                                    "modifiers": { "optional": ["any"] }
+                                },
+                                "to": [
+                                    {
+                                        "set_variable": {
+                                            "name": "hyper_sublayer_o",
+                                            "value": 1
+                                        }
+                                    }
+                                ],
+                                "to_after_key_up": [
+                                    {
+                                        "set_variable": {
+                                            "name": "hyper_sublayer_o",
+                                            "value": 0
+                                        }
+                                    }
+                                ],
+                                "type": "basic"
+                            },
+                            {
+                                "conditions": [
+                                    {
+                                        "name": "hyper_sublayer_o",
+                                        "type": "variable_if",
+                                        "value": 1
+                                    }
+                                ],
+                                "description": "Open -a 'Brave Browser.app'",
+                                "from": {
+                                    "key_code": "b",
+                                    "modifiers": { "optional": ["any"] }
+                                },
+                                "to": [{ "shell_command": "open -a 'Brave Browser.app'" }],
+                                "type": "basic"
+                            },
+                            {
+                                "conditions": [
+                                    {
+                                        "name": "hyper_sublayer_o",
+                                        "type": "variable_if",
+                                        "value": 1
+                                    }
+                                ],
+                                "description": "Open -a 'Slack.app'",
+                                "from": {
+                                    "key_code": "s",
+                                    "modifiers": { "optional": ["any"] }
+                                },
+                                "to": [{ "shell_command": "open -a 'Slack.app'" }],
+                                "type": "basic"
+                            },
+                            {
+                                "conditions": [
+                                    {
+                                        "name": "hyper_sublayer_o",
+                                        "type": "variable_if",
+                                        "value": 1
+                                    }
+                                ],
+                                "description": "Open -a 'Notion.app'",
+                                "from": {
+                                    "key_code": "n",
+                                    "modifiers": { "optional": ["any"] }
+                                },
+                                "to": [{ "shell_command": "open -a 'Notion.app'" }],
+                                "type": "basic"
+                            },
+                            {
+                                "conditions": [
+                                    {
+                                        "name": "hyper_sublayer_o",
+                                        "type": "variable_if",
+                                        "value": 1
+                                    }
+                                ],
+                                "description": "Open -a 'Ghostty.app'",
+                                "from": {
+                                    "key_code": "g",
+                                    "modifiers": { "optional": ["any"] }
+                                },
+                                "to": [{ "shell_command": "open -a 'Ghostty.app'" }],
+                                "type": "basic"
+                            },
+                            {
+                                "conditions": [
+                                    {
+                                        "name": "hyper_sublayer_o",
+                                        "type": "variable_if",
+                                        "value": 1
+                                    }
+                                ],
+                                "description": "Open -a 'Finder.app'",
+                                "from": {
+                                    "key_code": "f",
+                                    "modifiers": { "optional": ["any"] }
+                                },
+                                "to": [{ "shell_command": "open -a 'Finder.app'" }],
+                                "type": "basic"
+                            },
+                            {
+                                "conditions": [
+                                    {
+                                        "name": "hyper_sublayer_o",
+                                        "type": "variable_if",
+                                        "value": 1
+                                    }
+                                ],
+                                "description": "Open -a 'Microsoft Edge.app'",
+                                "from": {
+                                    "key_code": "e",
+                                    "modifiers": { "optional": ["any"] }
+                                },
+                                "to": [{ "shell_command": "open -a 'Microsoft Edge.app'" }],
+                                "type": "basic"
+                            }
+                        ]
+                    },
+                    {
+                        "description": "Hyper Key + h",
+                        "manipulators": [
+                            {
+                                "conditions": [
+                                    {
+                                        "name": "hyper",
+                                        "type": "variable_if",
+                                        "value": 1
+                                    },
+                                    {
+                                        "name": "hyper_sublayer_0",
+                                        "type": "variable_if",
+                                        "value": 0
+                                    },
+                                    {
+                                        "name": "hyper_sublayer_4",
+                                        "type": "variable_if",
+                                        "value": 0
+                                    },
+                                    {
+                                        "name": "hyper_sublayer_o",
+                                        "type": "variable_if",
+                                        "value": 0
+                                    },
+                                    {
+                                        "name": "hyper_sublayer_h",
+                                        "type": "variable_if",
+                                        "value": 0
+                                    },
+                                    {
+                                        "name": "hyper_sublayer_j",
+                                        "type": "variable_if",
+                                        "value": 0
+                                    },
+                                    {
+                                        "name": "hyper_sublayer_k",
+                                        "type": "variable_if",
+                                        "value": 0
+                                    },
+                                    {
+                                        "name": "hyper_sublayer_l",
+                                        "type": "variable_if",
+                                        "value": 0
+                                    },
+                                    {
+                                        "name": "hyper_sublayer_b",
+                                        "type": "variable_if",
+                                        "value": 0
+                                    },
+                                    {
+                                        "name": "hyper_sublayer_w",
+                                        "type": "variable_if",
+                                        "value": 0
+                                    },
+                                    {
+                                        "name": "hyper_sublayer_u",
+                                        "type": "variable_if",
+                                        "value": 0
+                                    },
+                                    {
+                                        "name": "hyper_sublayer_d",
+                                        "type": "variable_if",
+                                        "value": 0
+                                    },
+                                    {
+                                        "name": "hyper_sublayer_x",
+                                        "type": "variable_if",
+                                        "value": 0
+                                    },
+                                    {
+                                        "name": "hyper_sublayer_delete_or_backspace",
+                                        "type": "variable_if",
+                                        "value": 0
+                                    }
+                                ],
+                                "description": "←",
+                                "from": {
+                                    "key_code": "h",
+                                    "modifiers": { "optional": ["any"] }
+                                },
+                                "to": [{ "key_code": "left_arrow" }],
+                                "type": "basic"
+                            }
+                        ]
+                    },
+                    {
+                        "description": "Hyper Key + j",
+                        "manipulators": [
+                            {
+                                "conditions": [
+                                    {
+                                        "name": "hyper",
+                                        "type": "variable_if",
+                                        "value": 1
+                                    },
+                                    {
+                                        "name": "hyper_sublayer_0",
+                                        "type": "variable_if",
+                                        "value": 0
+                                    },
+                                    {
+                                        "name": "hyper_sublayer_4",
+                                        "type": "variable_if",
+                                        "value": 0
+                                    },
+                                    {
+                                        "name": "hyper_sublayer_o",
+                                        "type": "variable_if",
+                                        "value": 0
+                                    },
+                                    {
+                                        "name": "hyper_sublayer_h",
+                                        "type": "variable_if",
+                                        "value": 0
+                                    },
+                                    {
+                                        "name": "hyper_sublayer_j",
+                                        "type": "variable_if",
+                                        "value": 0
+                                    },
+                                    {
+                                        "name": "hyper_sublayer_k",
+                                        "type": "variable_if",
+                                        "value": 0
+                                    },
+                                    {
+                                        "name": "hyper_sublayer_l",
+                                        "type": "variable_if",
+                                        "value": 0
+                                    },
+                                    {
+                                        "name": "hyper_sublayer_b",
+                                        "type": "variable_if",
+                                        "value": 0
+                                    },
+                                    {
+                                        "name": "hyper_sublayer_w",
+                                        "type": "variable_if",
+                                        "value": 0
+                                    },
+                                    {
+                                        "name": "hyper_sublayer_u",
+                                        "type": "variable_if",
+                                        "value": 0
+                                    },
+                                    {
+                                        "name": "hyper_sublayer_d",
+                                        "type": "variable_if",
+                                        "value": 0
+                                    },
+                                    {
+                                        "name": "hyper_sublayer_x",
+                                        "type": "variable_if",
+                                        "value": 0
+                                    },
+                                    {
+                                        "name": "hyper_sublayer_delete_or_backspace",
+                                        "type": "variable_if",
+                                        "value": 0
+                                    }
+                                ],
+                                "description": "↓",
+                                "from": {
+                                    "key_code": "j",
+                                    "modifiers": { "optional": ["any"] }
+                                },
+                                "to": [{ "key_code": "down_arrow" }],
+                                "type": "basic"
+                            }
+                        ]
+                    },
+                    {
+                        "description": "Hyper Key + k",
+                        "manipulators": [
+                            {
+                                "conditions": [
+                                    {
+                                        "name": "hyper",
+                                        "type": "variable_if",
+                                        "value": 1
+                                    },
+                                    {
+                                        "name": "hyper_sublayer_0",
+                                        "type": "variable_if",
+                                        "value": 0
+                                    },
+                                    {
+                                        "name": "hyper_sublayer_4",
+                                        "type": "variable_if",
+                                        "value": 0
+                                    },
+                                    {
+                                        "name": "hyper_sublayer_o",
+                                        "type": "variable_if",
+                                        "value": 0
+                                    },
+                                    {
+                                        "name": "hyper_sublayer_h",
+                                        "type": "variable_if",
+                                        "value": 0
+                                    },
+                                    {
+                                        "name": "hyper_sublayer_j",
+                                        "type": "variable_if",
+                                        "value": 0
+                                    },
+                                    {
+                                        "name": "hyper_sublayer_k",
+                                        "type": "variable_if",
+                                        "value": 0
+                                    },
+                                    {
+                                        "name": "hyper_sublayer_l",
+                                        "type": "variable_if",
+                                        "value": 0
+                                    },
+                                    {
+                                        "name": "hyper_sublayer_b",
+                                        "type": "variable_if",
+                                        "value": 0
+                                    },
+                                    {
+                                        "name": "hyper_sublayer_w",
+                                        "type": "variable_if",
+                                        "value": 0
+                                    },
+                                    {
+                                        "name": "hyper_sublayer_u",
+                                        "type": "variable_if",
+                                        "value": 0
+                                    },
+                                    {
+                                        "name": "hyper_sublayer_d",
+                                        "type": "variable_if",
+                                        "value": 0
+                                    },
+                                    {
+                                        "name": "hyper_sublayer_x",
+                                        "type": "variable_if",
+                                        "value": 0
+                                    },
+                                    {
+                                        "name": "hyper_sublayer_delete_or_backspace",
+                                        "type": "variable_if",
+                                        "value": 0
+                                    }
+                                ],
+                                "description": "↑",
+                                "from": {
+                                    "key_code": "k",
+                                    "modifiers": { "optional": ["any"] }
+                                },
+                                "to": [{ "key_code": "up_arrow" }],
+                                "type": "basic"
+                            }
+                        ]
+                    },
+                    {
+                        "description": "Hyper Key + l",
+                        "manipulators": [
+                            {
+                                "conditions": [
+                                    {
+                                        "name": "hyper",
+                                        "type": "variable_if",
+                                        "value": 1
+                                    },
+                                    {
+                                        "name": "hyper_sublayer_0",
+                                        "type": "variable_if",
+                                        "value": 0
+                                    },
+                                    {
+                                        "name": "hyper_sublayer_4",
+                                        "type": "variable_if",
+                                        "value": 0
+                                    },
+                                    {
+                                        "name": "hyper_sublayer_o",
+                                        "type": "variable_if",
+                                        "value": 0
+                                    },
+                                    {
+                                        "name": "hyper_sublayer_h",
+                                        "type": "variable_if",
+                                        "value": 0
+                                    },
+                                    {
+                                        "name": "hyper_sublayer_j",
+                                        "type": "variable_if",
+                                        "value": 0
+                                    },
+                                    {
+                                        "name": "hyper_sublayer_k",
+                                        "type": "variable_if",
+                                        "value": 0
+                                    },
+                                    {
+                                        "name": "hyper_sublayer_l",
+                                        "type": "variable_if",
+                                        "value": 0
+                                    },
+                                    {
+                                        "name": "hyper_sublayer_b",
+                                        "type": "variable_if",
+                                        "value": 0
+                                    },
+                                    {
+                                        "name": "hyper_sublayer_w",
+                                        "type": "variable_if",
+                                        "value": 0
+                                    },
+                                    {
+                                        "name": "hyper_sublayer_u",
+                                        "type": "variable_if",
+                                        "value": 0
+                                    },
+                                    {
+                                        "name": "hyper_sublayer_d",
+                                        "type": "variable_if",
+                                        "value": 0
+                                    },
+                                    {
+                                        "name": "hyper_sublayer_x",
+                                        "type": "variable_if",
+                                        "value": 0
+                                    },
+                                    {
+                                        "name": "hyper_sublayer_delete_or_backspace",
+                                        "type": "variable_if",
+                                        "value": 0
+                                    }
+                                ],
+                                "description": "→",
+                                "from": {
+                                    "key_code": "l",
+                                    "modifiers": { "optional": ["any"] }
+                                },
+                                "to": [{ "key_code": "right_arrow" }],
+                                "type": "basic"
+                            }
+                        ]
+                    },
+                    {
+                        "description": "Hyper Key + b",
+                        "manipulators": [
+                            {
+                                "conditions": [
+                                    {
+                                        "name": "hyper",
+                                        "type": "variable_if",
+                                        "value": 1
+                                    },
+                                    {
+                                        "name": "hyper_sublayer_0",
+                                        "type": "variable_if",
+                                        "value": 0
+                                    },
+                                    {
+                                        "name": "hyper_sublayer_4",
+                                        "type": "variable_if",
+                                        "value": 0
+                                    },
+                                    {
+                                        "name": "hyper_sublayer_o",
+                                        "type": "variable_if",
+                                        "value": 0
+                                    },
+                                    {
+                                        "name": "hyper_sublayer_h",
+                                        "type": "variable_if",
+                                        "value": 0
+                                    },
+                                    {
+                                        "name": "hyper_sublayer_j",
+                                        "type": "variable_if",
+                                        "value": 0
+                                    },
+                                    {
+                                        "name": "hyper_sublayer_k",
+                                        "type": "variable_if",
+                                        "value": 0
+                                    },
+                                    {
+                                        "name": "hyper_sublayer_l",
+                                        "type": "variable_if",
+                                        "value": 0
+                                    },
+                                    {
+                                        "name": "hyper_sublayer_b",
+                                        "type": "variable_if",
+                                        "value": 0
+                                    },
+                                    {
+                                        "name": "hyper_sublayer_w",
+                                        "type": "variable_if",
+                                        "value": 0
+                                    },
+                                    {
+                                        "name": "hyper_sublayer_u",
+                                        "type": "variable_if",
+                                        "value": 0
+                                    },
+                                    {
+                                        "name": "hyper_sublayer_d",
+                                        "type": "variable_if",
+                                        "value": 0
+                                    },
+                                    {
+                                        "name": "hyper_sublayer_x",
+                                        "type": "variable_if",
+                                        "value": 0
+                                    },
+                                    {
+                                        "name": "hyper_sublayer_delete_or_backspace",
+                                        "type": "variable_if",
+                                        "value": 0
+                                    }
+                                ],
+                                "description": "Prev word",
+                                "from": {
+                                    "key_code": "b",
+                                    "modifiers": { "optional": ["any"] }
+                                },
+                                "to": [
+                                    {
+                                        "key_code": "left_arrow",
+                                        "modifiers": ["left_option"]
+                                    }
+                                ],
+                                "type": "basic"
+                            }
+                        ]
+                    },
+                    {
+                        "description": "Hyper Key + w",
+                        "manipulators": [
+                            {
+                                "conditions": [
+                                    {
+                                        "name": "hyper",
+                                        "type": "variable_if",
+                                        "value": 1
+                                    },
+                                    {
+                                        "name": "hyper_sublayer_0",
+                                        "type": "variable_if",
+                                        "value": 0
+                                    },
+                                    {
+                                        "name": "hyper_sublayer_4",
+                                        "type": "variable_if",
+                                        "value": 0
+                                    },
+                                    {
+                                        "name": "hyper_sublayer_o",
+                                        "type": "variable_if",
+                                        "value": 0
+                                    },
+                                    {
+                                        "name": "hyper_sublayer_h",
+                                        "type": "variable_if",
+                                        "value": 0
+                                    },
+                                    {
+                                        "name": "hyper_sublayer_j",
+                                        "type": "variable_if",
+                                        "value": 0
+                                    },
+                                    {
+                                        "name": "hyper_sublayer_k",
+                                        "type": "variable_if",
+                                        "value": 0
+                                    },
+                                    {
+                                        "name": "hyper_sublayer_l",
+                                        "type": "variable_if",
+                                        "value": 0
+                                    },
+                                    {
+                                        "name": "hyper_sublayer_b",
+                                        "type": "variable_if",
+                                        "value": 0
+                                    },
+                                    {
+                                        "name": "hyper_sublayer_w",
+                                        "type": "variable_if",
+                                        "value": 0
+                                    },
+                                    {
+                                        "name": "hyper_sublayer_u",
+                                        "type": "variable_if",
+                                        "value": 0
+                                    },
+                                    {
+                                        "name": "hyper_sublayer_d",
+                                        "type": "variable_if",
+                                        "value": 0
+                                    },
+                                    {
+                                        "name": "hyper_sublayer_x",
+                                        "type": "variable_if",
+                                        "value": 0
+                                    },
+                                    {
+                                        "name": "hyper_sublayer_delete_or_backspace",
+                                        "type": "variable_if",
+                                        "value": 0
+                                    }
+                                ],
+                                "description": "Next word",
+                                "from": {
+                                    "key_code": "w",
+                                    "modifiers": { "optional": ["any"] }
+                                },
+                                "to": [
+                                    {
+                                        "key_code": "right_arrow",
+                                        "modifiers": ["left_option"]
+                                    }
+                                ],
+                                "type": "basic"
+                            }
+                        ]
+                    },
+                    {
+                        "description": "Hyper Key + u",
+                        "manipulators": [
+                            {
+                                "conditions": [
+                                    {
+                                        "name": "hyper",
+                                        "type": "variable_if",
+                                        "value": 1
+                                    },
+                                    {
+                                        "name": "hyper_sublayer_0",
+                                        "type": "variable_if",
+                                        "value": 0
+                                    },
+                                    {
+                                        "name": "hyper_sublayer_4",
+                                        "type": "variable_if",
+                                        "value": 0
+                                    },
+                                    {
+                                        "name": "hyper_sublayer_o",
+                                        "type": "variable_if",
+                                        "value": 0
+                                    },
+                                    {
+                                        "name": "hyper_sublayer_h",
+                                        "type": "variable_if",
+                                        "value": 0
+                                    },
+                                    {
+                                        "name": "hyper_sublayer_j",
+                                        "type": "variable_if",
+                                        "value": 0
+                                    },
+                                    {
+                                        "name": "hyper_sublayer_k",
+                                        "type": "variable_if",
+                                        "value": 0
+                                    },
+                                    {
+                                        "name": "hyper_sublayer_l",
+                                        "type": "variable_if",
+                                        "value": 0
+                                    },
+                                    {
+                                        "name": "hyper_sublayer_b",
+                                        "type": "variable_if",
+                                        "value": 0
+                                    },
+                                    {
+                                        "name": "hyper_sublayer_w",
+                                        "type": "variable_if",
+                                        "value": 0
+                                    },
+                                    {
+                                        "name": "hyper_sublayer_u",
+                                        "type": "variable_if",
+                                        "value": 0
+                                    },
+                                    {
+                                        "name": "hyper_sublayer_d",
+                                        "type": "variable_if",
+                                        "value": 0
+                                    },
+                                    {
+                                        "name": "hyper_sublayer_x",
+                                        "type": "variable_if",
+                                        "value": 0
+                                    },
+                                    {
+                                        "name": "hyper_sublayer_delete_or_backspace",
+                                        "type": "variable_if",
+                                        "value": 0
+                                    }
+                                ],
+                                "description": "Page up",
+                                "from": {
+                                    "key_code": "u",
+                                    "modifiers": { "optional": ["any"] }
+                                },
+                                "to": [{ "key_code": "page_up" }],
+                                "type": "basic"
+                            }
+                        ]
+                    },
+                    {
+                        "description": "Hyper Key + d",
+                        "manipulators": [
+                            {
+                                "conditions": [
+                                    {
+                                        "name": "hyper",
+                                        "type": "variable_if",
+                                        "value": 1
+                                    },
+                                    {
+                                        "name": "hyper_sublayer_0",
+                                        "type": "variable_if",
+                                        "value": 0
+                                    },
+                                    {
+                                        "name": "hyper_sublayer_4",
+                                        "type": "variable_if",
+                                        "value": 0
+                                    },
+                                    {
+                                        "name": "hyper_sublayer_o",
+                                        "type": "variable_if",
+                                        "value": 0
+                                    },
+                                    {
+                                        "name": "hyper_sublayer_h",
+                                        "type": "variable_if",
+                                        "value": 0
+                                    },
+                                    {
+                                        "name": "hyper_sublayer_j",
+                                        "type": "variable_if",
+                                        "value": 0
+                                    },
+                                    {
+                                        "name": "hyper_sublayer_k",
+                                        "type": "variable_if",
+                                        "value": 0
+                                    },
+                                    {
+                                        "name": "hyper_sublayer_l",
+                                        "type": "variable_if",
+                                        "value": 0
+                                    },
+                                    {
+                                        "name": "hyper_sublayer_b",
+                                        "type": "variable_if",
+                                        "value": 0
+                                    },
+                                    {
+                                        "name": "hyper_sublayer_w",
+                                        "type": "variable_if",
+                                        "value": 0
+                                    },
+                                    {
+                                        "name": "hyper_sublayer_u",
+                                        "type": "variable_if",
+                                        "value": 0
+                                    },
+                                    {
+                                        "name": "hyper_sublayer_d",
+                                        "type": "variable_if",
+                                        "value": 0
+                                    },
+                                    {
+                                        "name": "hyper_sublayer_x",
+                                        "type": "variable_if",
+                                        "value": 0
+                                    },
+                                    {
+                                        "name": "hyper_sublayer_delete_or_backspace",
+                                        "type": "variable_if",
+                                        "value": 0
+                                    }
+                                ],
+                                "description": "Page down",
+                                "from": {
+                                    "key_code": "d",
+                                    "modifiers": { "optional": ["any"] }
+                                },
+                                "to": [{ "key_code": "page_down" }],
+                                "type": "basic"
+                            }
+                        ]
+                    },
+                    {
+                        "description": "Hyper Key + x",
+                        "manipulators": [
+                            {
+                                "conditions": [
+                                    {
+                                        "name": "hyper",
+                                        "type": "variable_if",
+                                        "value": 1
+                                    },
+                                    {
+                                        "name": "hyper_sublayer_0",
+                                        "type": "variable_if",
+                                        "value": 0
+                                    },
+                                    {
+                                        "name": "hyper_sublayer_4",
+                                        "type": "variable_if",
+                                        "value": 0
+                                    },
+                                    {
+                                        "name": "hyper_sublayer_o",
+                                        "type": "variable_if",
+                                        "value": 0
+                                    },
+                                    {
+                                        "name": "hyper_sublayer_h",
+                                        "type": "variable_if",
+                                        "value": 0
+                                    },
+                                    {
+                                        "name": "hyper_sublayer_j",
+                                        "type": "variable_if",
+                                        "value": 0
+                                    },
+                                    {
+                                        "name": "hyper_sublayer_k",
+                                        "type": "variable_if",
+                                        "value": 0
+                                    },
+                                    {
+                                        "name": "hyper_sublayer_l",
+                                        "type": "variable_if",
+                                        "value": 0
+                                    },
+                                    {
+                                        "name": "hyper_sublayer_b",
+                                        "type": "variable_if",
+                                        "value": 0
+                                    },
+                                    {
+                                        "name": "hyper_sublayer_w",
+                                        "type": "variable_if",
+                                        "value": 0
+                                    },
+                                    {
+                                        "name": "hyper_sublayer_u",
+                                        "type": "variable_if",
+                                        "value": 0
+                                    },
+                                    {
+                                        "name": "hyper_sublayer_d",
+                                        "type": "variable_if",
+                                        "value": 0
+                                    },
+                                    {
+                                        "name": "hyper_sublayer_x",
+                                        "type": "variable_if",
+                                        "value": 0
+                                    },
+                                    {
+                                        "name": "hyper_sublayer_delete_or_backspace",
+                                        "type": "variable_if",
+                                        "value": 0
+                                    }
+                                ],
+                                "description": "Forward delete",
+                                "from": {
+                                    "key_code": "x",
+                                    "modifiers": { "optional": ["any"] }
+                                },
+                                "to": [{ "key_code": "delete_forward" }],
+                                "type": "basic"
+                            }
+                        ]
+                    },
+                    {
+                        "description": "Hyper Key + delete_or_backspace",
+                        "manipulators": [
+                            {
+                                "conditions": [
+                                    {
+                                        "name": "hyper",
+                                        "type": "variable_if",
+                                        "value": 1
+                                    },
+                                    {
+                                        "name": "hyper_sublayer_0",
+                                        "type": "variable_if",
+                                        "value": 0
+                                    },
+                                    {
+                                        "name": "hyper_sublayer_4",
+                                        "type": "variable_if",
+                                        "value": 0
+                                    },
+                                    {
+                                        "name": "hyper_sublayer_o",
+                                        "type": "variable_if",
+                                        "value": 0
+                                    },
+                                    {
+                                        "name": "hyper_sublayer_h",
+                                        "type": "variable_if",
+                                        "value": 0
+                                    },
+                                    {
+                                        "name": "hyper_sublayer_j",
+                                        "type": "variable_if",
+                                        "value": 0
+                                    },
+                                    {
+                                        "name": "hyper_sublayer_k",
+                                        "type": "variable_if",
+                                        "value": 0
+                                    },
+                                    {
+                                        "name": "hyper_sublayer_l",
+                                        "type": "variable_if",
+                                        "value": 0
+                                    },
+                                    {
+                                        "name": "hyper_sublayer_b",
+                                        "type": "variable_if",
+                                        "value": 0
+                                    },
+                                    {
+                                        "name": "hyper_sublayer_w",
+                                        "type": "variable_if",
+                                        "value": 0
+                                    },
+                                    {
+                                        "name": "hyper_sublayer_u",
+                                        "type": "variable_if",
+                                        "value": 0
+                                    },
+                                    {
+                                        "name": "hyper_sublayer_d",
+                                        "type": "variable_if",
+                                        "value": 0
+                                    },
+                                    {
+                                        "name": "hyper_sublayer_x",
+                                        "type": "variable_if",
+                                        "value": 0
+                                    },
+                                    {
+                                        "name": "hyper_sublayer_delete_or_backspace",
+                                        "type": "variable_if",
+                                        "value": 0
+                                    }
+                                ],
+                                "description": "Delete to line start",
+                                "from": {
+                                    "key_code": "delete_or_backspace",
+                                    "modifiers": { "optional": ["any"] }
+                                },
+                                "to": [
+                                    {
+                                        "key_code": "delete_or_backspace",
+                                        "modifiers": ["left_command"]
+                                    }
+                                ],
+                                "type": "basic"
+                            }
+                        ]
+                    }
+                ]
+            },
+            "devices": [
+                {
+                    "identifiers": {
+                        "is_keyboard": true,
+                        "product_id": 53296,
+                        "vendor_id": 13364
+                    },
+                    "ignore_vendor_events": true
+                },
+                {
+                    "disable_built_in_keyboard_if_exists": true,
+                    "identifiers": {
+                        "is_keyboard": true,
+                        "product_id": 12302,
+                        "vendor_id": 14000
+                    },
+                    "ignore_vendor_events": true
+                },
+                {
+                    "identifiers": {
+                        "is_keyboard": true,
+                        "is_pointing_device": true,
+                        "product_id": 12292,
+                        "vendor_id": 14000
+                    },
+                    "ignore": true,
+                    "ignore_vendor_events": true
+                }
+            ],
+            "name": "Default",
+            "virtual_hid_keyboard": { "keyboard_type_v2": "ansi" }
         }
-      ],
-      "virtual_hid_keyboard": {
-        "keyboard_type_v2": "ansi"
-      },
-      "complex_modifications": {
-        "parameters": {
-          "basic.to_if_alone_timeout_milliseconds": 300,
-          "basic.to_if_held_down_threshold_milliseconds": 125,
-          "basic.to_delayed_action_delay_milliseconds": 200,
-          "basic.simultaneous_threshold_milliseconds": 100,
-          "mouse_motion_to_scroll.speed": 100
-        },
-        "rules": [
-          {
-            "description": "Hyper Key (⌃⌥⇧⌘)",
-            "manipulators": [
-              {
-                "description": "Caps Lock -> Hyper Key",
-                "from": {
-                  "key_code": "caps_lock",
-                  "modifiers": {
-                    "optional": [
-                      "any"
-                    ]
-                  }
-                },
-                "to": [
-                  {
-                    "set_variable": {
-                      "name": "hyper",
-                      "value": 1
-                    }
-                  }
-                ],
-                "to_after_key_up": [
-                  {
-                    "set_variable": {
-                      "name": "hyper",
-                      "value": 0
-                    }
-                  }
-                ],
-                "to_if_alone": [
-                  {
-                    "key_code": "escape"
-                  }
-                ],
-                "type": "basic"
-              }
-            ]
-          },
-          {
-            "description": "Hyper Key + 0",
-            "manipulators": [
-              {
-                "to": [
-                  {
-                    "key_code": "left_arrow",
-                    "modifiers": [
-                      "left_command"
-                    ]
-                  }
-                ],
-                "description": "Line start",
-                "type": "basic",
-                "from": {
-                  "key_code": "0",
-                  "modifiers": {
-                    "optional": [
-                      "any"
-                    ]
-                  }
-                },
-                "conditions": [
-                  {
-                    "type": "variable_if",
-                    "name": "hyper",
-                    "value": 1
-                  },
-                  {
-                    "type": "variable_if",
-                    "name": "hyper_sublayer_0",
-                    "value": 0
-                  },
-                  {
-                    "type": "variable_if",
-                    "name": "hyper_sublayer_4",
-                    "value": 0
-                  },
-                  {
-                    "type": "variable_if",
-                    "name": "hyper_sublayer_o",
-                    "value": 0
-                  },
-                  {
-                    "type": "variable_if",
-                    "name": "hyper_sublayer_h",
-                    "value": 0
-                  },
-                  {
-                    "type": "variable_if",
-                    "name": "hyper_sublayer_j",
-                    "value": 0
-                  },
-                  {
-                    "type": "variable_if",
-                    "name": "hyper_sublayer_k",
-                    "value": 0
-                  },
-                  {
-                    "type": "variable_if",
-                    "name": "hyper_sublayer_l",
-                    "value": 0
-                  },
-                  {
-                    "type": "variable_if",
-                    "name": "hyper_sublayer_b",
-                    "value": 0
-                  },
-                  {
-                    "type": "variable_if",
-                    "name": "hyper_sublayer_w",
-                    "value": 0
-                  },
-                  {
-                    "type": "variable_if",
-                    "name": "hyper_sublayer_u",
-                    "value": 0
-                  },
-                  {
-                    "type": "variable_if",
-                    "name": "hyper_sublayer_d",
-                    "value": 0
-                  },
-                  {
-                    "type": "variable_if",
-                    "name": "hyper_sublayer_x",
-                    "value": 0
-                  },
-                  {
-                    "type": "variable_if",
-                    "name": "hyper_sublayer_delete_or_backspace",
-                    "value": 0
-                  }
-                ]
-              }
-            ]
-          },
-          {
-            "description": "Hyper Key + 4",
-            "manipulators": [
-              {
-                "to": [
-                  {
-                    "key_code": "right_arrow",
-                    "modifiers": [
-                      "left_command"
-                    ]
-                  }
-                ],
-                "description": "Line end",
-                "type": "basic",
-                "from": {
-                  "key_code": "4",
-                  "modifiers": {
-                    "optional": [
-                      "any"
-                    ]
-                  }
-                },
-                "conditions": [
-                  {
-                    "type": "variable_if",
-                    "name": "hyper",
-                    "value": 1
-                  },
-                  {
-                    "type": "variable_if",
-                    "name": "hyper_sublayer_0",
-                    "value": 0
-                  },
-                  {
-                    "type": "variable_if",
-                    "name": "hyper_sublayer_4",
-                    "value": 0
-                  },
-                  {
-                    "type": "variable_if",
-                    "name": "hyper_sublayer_o",
-                    "value": 0
-                  },
-                  {
-                    "type": "variable_if",
-                    "name": "hyper_sublayer_h",
-                    "value": 0
-                  },
-                  {
-                    "type": "variable_if",
-                    "name": "hyper_sublayer_j",
-                    "value": 0
-                  },
-                  {
-                    "type": "variable_if",
-                    "name": "hyper_sublayer_k",
-                    "value": 0
-                  },
-                  {
-                    "type": "variable_if",
-                    "name": "hyper_sublayer_l",
-                    "value": 0
-                  },
-                  {
-                    "type": "variable_if",
-                    "name": "hyper_sublayer_b",
-                    "value": 0
-                  },
-                  {
-                    "type": "variable_if",
-                    "name": "hyper_sublayer_w",
-                    "value": 0
-                  },
-                  {
-                    "type": "variable_if",
-                    "name": "hyper_sublayer_u",
-                    "value": 0
-                  },
-                  {
-                    "type": "variable_if",
-                    "name": "hyper_sublayer_d",
-                    "value": 0
-                  },
-                  {
-                    "type": "variable_if",
-                    "name": "hyper_sublayer_x",
-                    "value": 0
-                  },
-                  {
-                    "type": "variable_if",
-                    "name": "hyper_sublayer_delete_or_backspace",
-                    "value": 0
-                  }
-                ]
-              }
-            ]
-          },
-          {
-            "description": "Hyper Key sublayer \"o\"",
-            "manipulators": [
-              {
-                "description": "Toggle Hyper sublayer o",
-                "type": "basic",
-                "from": {
-                  "key_code": "o",
-                  "modifiers": {
-                    "optional": [
-                      "any"
-                    ]
-                  }
-                },
-                "to_after_key_up": [
-                  {
-                    "set_variable": {
-                      "name": "hyper_sublayer_o",
-                      "value": 0
-                    }
-                  }
-                ],
-                "to": [
-                  {
-                    "set_variable": {
-                      "name": "hyper_sublayer_o",
-                      "value": 1
-                    }
-                  }
-                ],
-                "conditions": [
-                  {
-                    "type": "variable_if",
-                    "name": "hyper_sublayer_0",
-                    "value": 0
-                  },
-                  {
-                    "type": "variable_if",
-                    "name": "hyper_sublayer_4",
-                    "value": 0
-                  },
-                  {
-                    "type": "variable_if",
-                    "name": "hyper_sublayer_h",
-                    "value": 0
-                  },
-                  {
-                    "type": "variable_if",
-                    "name": "hyper_sublayer_j",
-                    "value": 0
-                  },
-                  {
-                    "type": "variable_if",
-                    "name": "hyper_sublayer_k",
-                    "value": 0
-                  },
-                  {
-                    "type": "variable_if",
-                    "name": "hyper_sublayer_l",
-                    "value": 0
-                  },
-                  {
-                    "type": "variable_if",
-                    "name": "hyper_sublayer_b",
-                    "value": 0
-                  },
-                  {
-                    "type": "variable_if",
-                    "name": "hyper_sublayer_w",
-                    "value": 0
-                  },
-                  {
-                    "type": "variable_if",
-                    "name": "hyper_sublayer_u",
-                    "value": 0
-                  },
-                  {
-                    "type": "variable_if",
-                    "name": "hyper_sublayer_d",
-                    "value": 0
-                  },
-                  {
-                    "type": "variable_if",
-                    "name": "hyper_sublayer_x",
-                    "value": 0
-                  },
-                  {
-                    "type": "variable_if",
-                    "name": "hyper_sublayer_delete_or_backspace",
-                    "value": 0
-                  },
-                  {
-                    "type": "variable_if",
-                    "name": "hyper",
-                    "value": 1
-                  }
-                ]
-              },
-              {
-                "to": [
-                  {
-                    "shell_command": "open -a 'Brave Browser.app'"
-                  }
-                ],
-                "description": "Open -a 'Brave Browser.app'",
-                "type": "basic",
-                "from": {
-                  "key_code": "b",
-                  "modifiers": {
-                    "optional": [
-                      "any"
-                    ]
-                  }
-                },
-                "conditions": [
-                  {
-                    "type": "variable_if",
-                    "name": "hyper_sublayer_o",
-                    "value": 1
-                  }
-                ]
-              },
-              {
-                "to": [
-                  {
-                    "shell_command": "open -a 'Slack.app'"
-                  }
-                ],
-                "description": "Open -a 'Slack.app'",
-                "type": "basic",
-                "from": {
-                  "key_code": "s",
-                  "modifiers": {
-                    "optional": [
-                      "any"
-                    ]
-                  }
-                },
-                "conditions": [
-                  {
-                    "type": "variable_if",
-                    "name": "hyper_sublayer_o",
-                    "value": 1
-                  }
-                ]
-              },
-              {
-                "to": [
-                  {
-                    "shell_command": "open -a 'Notion.app'"
-                  }
-                ],
-                "description": "Open -a 'Notion.app'",
-                "type": "basic",
-                "from": {
-                  "key_code": "n",
-                  "modifiers": {
-                    "optional": [
-                      "any"
-                    ]
-                  }
-                },
-                "conditions": [
-                  {
-                    "type": "variable_if",
-                    "name": "hyper_sublayer_o",
-                    "value": 1
-                  }
-                ]
-              },
-              {
-                "to": [
-                  {
-                    "shell_command": "open -a 'Ghostty.app'"
-                  }
-                ],
-                "description": "Open -a 'Ghostty.app'",
-                "type": "basic",
-                "from": {
-                  "key_code": "g",
-                  "modifiers": {
-                    "optional": [
-                      "any"
-                    ]
-                  }
-                },
-                "conditions": [
-                  {
-                    "type": "variable_if",
-                    "name": "hyper_sublayer_o",
-                    "value": 1
-                  }
-                ]
-              },
-              {
-                "to": [
-                  {
-                    "shell_command": "open -a 'Finder.app'"
-                  }
-                ],
-                "description": "Open -a 'Finder.app'",
-                "type": "basic",
-                "from": {
-                  "key_code": "f",
-                  "modifiers": {
-                    "optional": [
-                      "any"
-                    ]
-                  }
-                },
-                "conditions": [
-                  {
-                    "type": "variable_if",
-                    "name": "hyper_sublayer_o",
-                    "value": 1
-                  }
-                ]
-              },
-              {
-                "to": [
-                  {
-                    "shell_command": "open -a 'Microsoft Edge.app'"
-                  }
-                ],
-                "description": "Open -a 'Microsoft Edge.app'",
-                "type": "basic",
-                "from": {
-                  "key_code": "e",
-                  "modifiers": {
-                    "optional": [
-                      "any"
-                    ]
-                  }
-                },
-                "conditions": [
-                  {
-                    "type": "variable_if",
-                    "name": "hyper_sublayer_o",
-                    "value": 1
-                  }
-                ]
-              }
-            ]
-          },
-          {
-            "description": "Hyper Key + h",
-            "manipulators": [
-              {
-                "to": [
-                  {
-                    "key_code": "left_arrow"
-                  }
-                ],
-                "description": "←",
-                "type": "basic",
-                "from": {
-                  "key_code": "h",
-                  "modifiers": {
-                    "optional": [
-                      "any"
-                    ]
-                  }
-                },
-                "conditions": [
-                  {
-                    "type": "variable_if",
-                    "name": "hyper",
-                    "value": 1
-                  },
-                  {
-                    "type": "variable_if",
-                    "name": "hyper_sublayer_0",
-                    "value": 0
-                  },
-                  {
-                    "type": "variable_if",
-                    "name": "hyper_sublayer_4",
-                    "value": 0
-                  },
-                  {
-                    "type": "variable_if",
-                    "name": "hyper_sublayer_o",
-                    "value": 0
-                  },
-                  {
-                    "type": "variable_if",
-                    "name": "hyper_sublayer_h",
-                    "value": 0
-                  },
-                  {
-                    "type": "variable_if",
-                    "name": "hyper_sublayer_j",
-                    "value": 0
-                  },
-                  {
-                    "type": "variable_if",
-                    "name": "hyper_sublayer_k",
-                    "value": 0
-                  },
-                  {
-                    "type": "variable_if",
-                    "name": "hyper_sublayer_l",
-                    "value": 0
-                  },
-                  {
-                    "type": "variable_if",
-                    "name": "hyper_sublayer_b",
-                    "value": 0
-                  },
-                  {
-                    "type": "variable_if",
-                    "name": "hyper_sublayer_w",
-                    "value": 0
-                  },
-                  {
-                    "type": "variable_if",
-                    "name": "hyper_sublayer_u",
-                    "value": 0
-                  },
-                  {
-                    "type": "variable_if",
-                    "name": "hyper_sublayer_d",
-                    "value": 0
-                  },
-                  {
-                    "type": "variable_if",
-                    "name": "hyper_sublayer_x",
-                    "value": 0
-                  },
-                  {
-                    "type": "variable_if",
-                    "name": "hyper_sublayer_delete_or_backspace",
-                    "value": 0
-                  }
-                ]
-              }
-            ]
-          },
-          {
-            "description": "Hyper Key + j",
-            "manipulators": [
-              {
-                "to": [
-                  {
-                    "key_code": "down_arrow"
-                  }
-                ],
-                "description": "↓",
-                "type": "basic",
-                "from": {
-                  "key_code": "j",
-                  "modifiers": {
-                    "optional": [
-                      "any"
-                    ]
-                  }
-                },
-                "conditions": [
-                  {
-                    "type": "variable_if",
-                    "name": "hyper",
-                    "value": 1
-                  },
-                  {
-                    "type": "variable_if",
-                    "name": "hyper_sublayer_0",
-                    "value": 0
-                  },
-                  {
-                    "type": "variable_if",
-                    "name": "hyper_sublayer_4",
-                    "value": 0
-                  },
-                  {
-                    "type": "variable_if",
-                    "name": "hyper_sublayer_o",
-                    "value": 0
-                  },
-                  {
-                    "type": "variable_if",
-                    "name": "hyper_sublayer_h",
-                    "value": 0
-                  },
-                  {
-                    "type": "variable_if",
-                    "name": "hyper_sublayer_j",
-                    "value": 0
-                  },
-                  {
-                    "type": "variable_if",
-                    "name": "hyper_sublayer_k",
-                    "value": 0
-                  },
-                  {
-                    "type": "variable_if",
-                    "name": "hyper_sublayer_l",
-                    "value": 0
-                  },
-                  {
-                    "type": "variable_if",
-                    "name": "hyper_sublayer_b",
-                    "value": 0
-                  },
-                  {
-                    "type": "variable_if",
-                    "name": "hyper_sublayer_w",
-                    "value": 0
-                  },
-                  {
-                    "type": "variable_if",
-                    "name": "hyper_sublayer_u",
-                    "value": 0
-                  },
-                  {
-                    "type": "variable_if",
-                    "name": "hyper_sublayer_d",
-                    "value": 0
-                  },
-                  {
-                    "type": "variable_if",
-                    "name": "hyper_sublayer_x",
-                    "value": 0
-                  },
-                  {
-                    "type": "variable_if",
-                    "name": "hyper_sublayer_delete_or_backspace",
-                    "value": 0
-                  }
-                ]
-              }
-            ]
-          },
-          {
-            "description": "Hyper Key + k",
-            "manipulators": [
-              {
-                "to": [
-                  {
-                    "key_code": "up_arrow"
-                  }
-                ],
-                "description": "↑",
-                "type": "basic",
-                "from": {
-                  "key_code": "k",
-                  "modifiers": {
-                    "optional": [
-                      "any"
-                    ]
-                  }
-                },
-                "conditions": [
-                  {
-                    "type": "variable_if",
-                    "name": "hyper",
-                    "value": 1
-                  },
-                  {
-                    "type": "variable_if",
-                    "name": "hyper_sublayer_0",
-                    "value": 0
-                  },
-                  {
-                    "type": "variable_if",
-                    "name": "hyper_sublayer_4",
-                    "value": 0
-                  },
-                  {
-                    "type": "variable_if",
-                    "name": "hyper_sublayer_o",
-                    "value": 0
-                  },
-                  {
-                    "type": "variable_if",
-                    "name": "hyper_sublayer_h",
-                    "value": 0
-                  },
-                  {
-                    "type": "variable_if",
-                    "name": "hyper_sublayer_j",
-                    "value": 0
-                  },
-                  {
-                    "type": "variable_if",
-                    "name": "hyper_sublayer_k",
-                    "value": 0
-                  },
-                  {
-                    "type": "variable_if",
-                    "name": "hyper_sublayer_l",
-                    "value": 0
-                  },
-                  {
-                    "type": "variable_if",
-                    "name": "hyper_sublayer_b",
-                    "value": 0
-                  },
-                  {
-                    "type": "variable_if",
-                    "name": "hyper_sublayer_w",
-                    "value": 0
-                  },
-                  {
-                    "type": "variable_if",
-                    "name": "hyper_sublayer_u",
-                    "value": 0
-                  },
-                  {
-                    "type": "variable_if",
-                    "name": "hyper_sublayer_d",
-                    "value": 0
-                  },
-                  {
-                    "type": "variable_if",
-                    "name": "hyper_sublayer_x",
-                    "value": 0
-                  },
-                  {
-                    "type": "variable_if",
-                    "name": "hyper_sublayer_delete_or_backspace",
-                    "value": 0
-                  }
-                ]
-              }
-            ]
-          },
-          {
-            "description": "Hyper Key + l",
-            "manipulators": [
-              {
-                "to": [
-                  {
-                    "key_code": "right_arrow"
-                  }
-                ],
-                "description": "→",
-                "type": "basic",
-                "from": {
-                  "key_code": "l",
-                  "modifiers": {
-                    "optional": [
-                      "any"
-                    ]
-                  }
-                },
-                "conditions": [
-                  {
-                    "type": "variable_if",
-                    "name": "hyper",
-                    "value": 1
-                  },
-                  {
-                    "type": "variable_if",
-                    "name": "hyper_sublayer_0",
-                    "value": 0
-                  },
-                  {
-                    "type": "variable_if",
-                    "name": "hyper_sublayer_4",
-                    "value": 0
-                  },
-                  {
-                    "type": "variable_if",
-                    "name": "hyper_sublayer_o",
-                    "value": 0
-                  },
-                  {
-                    "type": "variable_if",
-                    "name": "hyper_sublayer_h",
-                    "value": 0
-                  },
-                  {
-                    "type": "variable_if",
-                    "name": "hyper_sublayer_j",
-                    "value": 0
-                  },
-                  {
-                    "type": "variable_if",
-                    "name": "hyper_sublayer_k",
-                    "value": 0
-                  },
-                  {
-                    "type": "variable_if",
-                    "name": "hyper_sublayer_l",
-                    "value": 0
-                  },
-                  {
-                    "type": "variable_if",
-                    "name": "hyper_sublayer_b",
-                    "value": 0
-                  },
-                  {
-                    "type": "variable_if",
-                    "name": "hyper_sublayer_w",
-                    "value": 0
-                  },
-                  {
-                    "type": "variable_if",
-                    "name": "hyper_sublayer_u",
-                    "value": 0
-                  },
-                  {
-                    "type": "variable_if",
-                    "name": "hyper_sublayer_d",
-                    "value": 0
-                  },
-                  {
-                    "type": "variable_if",
-                    "name": "hyper_sublayer_x",
-                    "value": 0
-                  },
-                  {
-                    "type": "variable_if",
-                    "name": "hyper_sublayer_delete_or_backspace",
-                    "value": 0
-                  }
-                ]
-              }
-            ]
-          },
-          {
-            "description": "Hyper Key + b",
-            "manipulators": [
-              {
-                "to": [
-                  {
-                    "key_code": "left_arrow",
-                    "modifiers": [
-                      "left_option"
-                    ]
-                  }
-                ],
-                "description": "Prev word",
-                "type": "basic",
-                "from": {
-                  "key_code": "b",
-                  "modifiers": {
-                    "optional": [
-                      "any"
-                    ]
-                  }
-                },
-                "conditions": [
-                  {
-                    "type": "variable_if",
-                    "name": "hyper",
-                    "value": 1
-                  },
-                  {
-                    "type": "variable_if",
-                    "name": "hyper_sublayer_0",
-                    "value": 0
-                  },
-                  {
-                    "type": "variable_if",
-                    "name": "hyper_sublayer_4",
-                    "value": 0
-                  },
-                  {
-                    "type": "variable_if",
-                    "name": "hyper_sublayer_o",
-                    "value": 0
-                  },
-                  {
-                    "type": "variable_if",
-                    "name": "hyper_sublayer_h",
-                    "value": 0
-                  },
-                  {
-                    "type": "variable_if",
-                    "name": "hyper_sublayer_j",
-                    "value": 0
-                  },
-                  {
-                    "type": "variable_if",
-                    "name": "hyper_sublayer_k",
-                    "value": 0
-                  },
-                  {
-                    "type": "variable_if",
-                    "name": "hyper_sublayer_l",
-                    "value": 0
-                  },
-                  {
-                    "type": "variable_if",
-                    "name": "hyper_sublayer_b",
-                    "value": 0
-                  },
-                  {
-                    "type": "variable_if",
-                    "name": "hyper_sublayer_w",
-                    "value": 0
-                  },
-                  {
-                    "type": "variable_if",
-                    "name": "hyper_sublayer_u",
-                    "value": 0
-                  },
-                  {
-                    "type": "variable_if",
-                    "name": "hyper_sublayer_d",
-                    "value": 0
-                  },
-                  {
-                    "type": "variable_if",
-                    "name": "hyper_sublayer_x",
-                    "value": 0
-                  },
-                  {
-                    "type": "variable_if",
-                    "name": "hyper_sublayer_delete_or_backspace",
-                    "value": 0
-                  }
-                ]
-              }
-            ]
-          },
-          {
-            "description": "Hyper Key + w",
-            "manipulators": [
-              {
-                "to": [
-                  {
-                    "key_code": "right_arrow",
-                    "modifiers": [
-                      "left_option"
-                    ]
-                  }
-                ],
-                "description": "Next word",
-                "type": "basic",
-                "from": {
-                  "key_code": "w",
-                  "modifiers": {
-                    "optional": [
-                      "any"
-                    ]
-                  }
-                },
-                "conditions": [
-                  {
-                    "type": "variable_if",
-                    "name": "hyper",
-                    "value": 1
-                  },
-                  {
-                    "type": "variable_if",
-                    "name": "hyper_sublayer_0",
-                    "value": 0
-                  },
-                  {
-                    "type": "variable_if",
-                    "name": "hyper_sublayer_4",
-                    "value": 0
-                  },
-                  {
-                    "type": "variable_if",
-                    "name": "hyper_sublayer_o",
-                    "value": 0
-                  },
-                  {
-                    "type": "variable_if",
-                    "name": "hyper_sublayer_h",
-                    "value": 0
-                  },
-                  {
-                    "type": "variable_if",
-                    "name": "hyper_sublayer_j",
-                    "value": 0
-                  },
-                  {
-                    "type": "variable_if",
-                    "name": "hyper_sublayer_k",
-                    "value": 0
-                  },
-                  {
-                    "type": "variable_if",
-                    "name": "hyper_sublayer_l",
-                    "value": 0
-                  },
-                  {
-                    "type": "variable_if",
-                    "name": "hyper_sublayer_b",
-                    "value": 0
-                  },
-                  {
-                    "type": "variable_if",
-                    "name": "hyper_sublayer_w",
-                    "value": 0
-                  },
-                  {
-                    "type": "variable_if",
-                    "name": "hyper_sublayer_u",
-                    "value": 0
-                  },
-                  {
-                    "type": "variable_if",
-                    "name": "hyper_sublayer_d",
-                    "value": 0
-                  },
-                  {
-                    "type": "variable_if",
-                    "name": "hyper_sublayer_x",
-                    "value": 0
-                  },
-                  {
-                    "type": "variable_if",
-                    "name": "hyper_sublayer_delete_or_backspace",
-                    "value": 0
-                  }
-                ]
-              }
-            ]
-          },
-          {
-            "description": "Hyper Key + u",
-            "manipulators": [
-              {
-                "to": [
-                  {
-                    "key_code": "page_up"
-                  }
-                ],
-                "description": "Page up",
-                "type": "basic",
-                "from": {
-                  "key_code": "u",
-                  "modifiers": {
-                    "optional": [
-                      "any"
-                    ]
-                  }
-                },
-                "conditions": [
-                  {
-                    "type": "variable_if",
-                    "name": "hyper",
-                    "value": 1
-                  },
-                  {
-                    "type": "variable_if",
-                    "name": "hyper_sublayer_0",
-                    "value": 0
-                  },
-                  {
-                    "type": "variable_if",
-                    "name": "hyper_sublayer_4",
-                    "value": 0
-                  },
-                  {
-                    "type": "variable_if",
-                    "name": "hyper_sublayer_o",
-                    "value": 0
-                  },
-                  {
-                    "type": "variable_if",
-                    "name": "hyper_sublayer_h",
-                    "value": 0
-                  },
-                  {
-                    "type": "variable_if",
-                    "name": "hyper_sublayer_j",
-                    "value": 0
-                  },
-                  {
-                    "type": "variable_if",
-                    "name": "hyper_sublayer_k",
-                    "value": 0
-                  },
-                  {
-                    "type": "variable_if",
-                    "name": "hyper_sublayer_l",
-                    "value": 0
-                  },
-                  {
-                    "type": "variable_if",
-                    "name": "hyper_sublayer_b",
-                    "value": 0
-                  },
-                  {
-                    "type": "variable_if",
-                    "name": "hyper_sublayer_w",
-                    "value": 0
-                  },
-                  {
-                    "type": "variable_if",
-                    "name": "hyper_sublayer_u",
-                    "value": 0
-                  },
-                  {
-                    "type": "variable_if",
-                    "name": "hyper_sublayer_d",
-                    "value": 0
-                  },
-                  {
-                    "type": "variable_if",
-                    "name": "hyper_sublayer_x",
-                    "value": 0
-                  },
-                  {
-                    "type": "variable_if",
-                    "name": "hyper_sublayer_delete_or_backspace",
-                    "value": 0
-                  }
-                ]
-              }
-            ]
-          },
-          {
-            "description": "Hyper Key + d",
-            "manipulators": [
-              {
-                "to": [
-                  {
-                    "key_code": "page_down"
-                  }
-                ],
-                "description": "Page down",
-                "type": "basic",
-                "from": {
-                  "key_code": "d",
-                  "modifiers": {
-                    "optional": [
-                      "any"
-                    ]
-                  }
-                },
-                "conditions": [
-                  {
-                    "type": "variable_if",
-                    "name": "hyper",
-                    "value": 1
-                  },
-                  {
-                    "type": "variable_if",
-                    "name": "hyper_sublayer_0",
-                    "value": 0
-                  },
-                  {
-                    "type": "variable_if",
-                    "name": "hyper_sublayer_4",
-                    "value": 0
-                  },
-                  {
-                    "type": "variable_if",
-                    "name": "hyper_sublayer_o",
-                    "value": 0
-                  },
-                  {
-                    "type": "variable_if",
-                    "name": "hyper_sublayer_h",
-                    "value": 0
-                  },
-                  {
-                    "type": "variable_if",
-                    "name": "hyper_sublayer_j",
-                    "value": 0
-                  },
-                  {
-                    "type": "variable_if",
-                    "name": "hyper_sublayer_k",
-                    "value": 0
-                  },
-                  {
-                    "type": "variable_if",
-                    "name": "hyper_sublayer_l",
-                    "value": 0
-                  },
-                  {
-                    "type": "variable_if",
-                    "name": "hyper_sublayer_b",
-                    "value": 0
-                  },
-                  {
-                    "type": "variable_if",
-                    "name": "hyper_sublayer_w",
-                    "value": 0
-                  },
-                  {
-                    "type": "variable_if",
-                    "name": "hyper_sublayer_u",
-                    "value": 0
-                  },
-                  {
-                    "type": "variable_if",
-                    "name": "hyper_sublayer_d",
-                    "value": 0
-                  },
-                  {
-                    "type": "variable_if",
-                    "name": "hyper_sublayer_x",
-                    "value": 0
-                  },
-                  {
-                    "type": "variable_if",
-                    "name": "hyper_sublayer_delete_or_backspace",
-                    "value": 0
-                  }
-                ]
-              }
-            ]
-          },
-          {
-            "description": "Hyper Key + x",
-            "manipulators": [
-              {
-                "to": [
-                  {
-                    "key_code": "delete_forward"
-                  }
-                ],
-                "description": "Forward delete",
-                "type": "basic",
-                "from": {
-                  "key_code": "x",
-                  "modifiers": {
-                    "optional": [
-                      "any"
-                    ]
-                  }
-                },
-                "conditions": [
-                  {
-                    "type": "variable_if",
-                    "name": "hyper",
-                    "value": 1
-                  },
-                  {
-                    "type": "variable_if",
-                    "name": "hyper_sublayer_0",
-                    "value": 0
-                  },
-                  {
-                    "type": "variable_if",
-                    "name": "hyper_sublayer_4",
-                    "value": 0
-                  },
-                  {
-                    "type": "variable_if",
-                    "name": "hyper_sublayer_o",
-                    "value": 0
-                  },
-                  {
-                    "type": "variable_if",
-                    "name": "hyper_sublayer_h",
-                    "value": 0
-                  },
-                  {
-                    "type": "variable_if",
-                    "name": "hyper_sublayer_j",
-                    "value": 0
-                  },
-                  {
-                    "type": "variable_if",
-                    "name": "hyper_sublayer_k",
-                    "value": 0
-                  },
-                  {
-                    "type": "variable_if",
-                    "name": "hyper_sublayer_l",
-                    "value": 0
-                  },
-                  {
-                    "type": "variable_if",
-                    "name": "hyper_sublayer_b",
-                    "value": 0
-                  },
-                  {
-                    "type": "variable_if",
-                    "name": "hyper_sublayer_w",
-                    "value": 0
-                  },
-                  {
-                    "type": "variable_if",
-                    "name": "hyper_sublayer_u",
-                    "value": 0
-                  },
-                  {
-                    "type": "variable_if",
-                    "name": "hyper_sublayer_d",
-                    "value": 0
-                  },
-                  {
-                    "type": "variable_if",
-                    "name": "hyper_sublayer_x",
-                    "value": 0
-                  },
-                  {
-                    "type": "variable_if",
-                    "name": "hyper_sublayer_delete_or_backspace",
-                    "value": 0
-                  }
-                ]
-              }
-            ]
-          },
-          {
-            "description": "Hyper Key + delete_or_backspace",
-            "manipulators": [
-              {
-                "to": [
-                  {
-                    "key_code": "delete_or_backspace",
-                    "modifiers": [
-                      "left_command"
-                    ]
-                  }
-                ],
-                "description": "Delete to line start",
-                "type": "basic",
-                "from": {
-                  "key_code": "delete_or_backspace",
-                  "modifiers": {
-                    "optional": [
-                      "any"
-                    ]
-                  }
-                },
-                "conditions": [
-                  {
-                    "type": "variable_if",
-                    "name": "hyper",
-                    "value": 1
-                  },
-                  {
-                    "type": "variable_if",
-                    "name": "hyper_sublayer_0",
-                    "value": 0
-                  },
-                  {
-                    "type": "variable_if",
-                    "name": "hyper_sublayer_4",
-                    "value": 0
-                  },
-                  {
-                    "type": "variable_if",
-                    "name": "hyper_sublayer_o",
-                    "value": 0
-                  },
-                  {
-                    "type": "variable_if",
-                    "name": "hyper_sublayer_h",
-                    "value": 0
-                  },
-                  {
-                    "type": "variable_if",
-                    "name": "hyper_sublayer_j",
-                    "value": 0
-                  },
-                  {
-                    "type": "variable_if",
-                    "name": "hyper_sublayer_k",
-                    "value": 0
-                  },
-                  {
-                    "type": "variable_if",
-                    "name": "hyper_sublayer_l",
-                    "value": 0
-                  },
-                  {
-                    "type": "variable_if",
-                    "name": "hyper_sublayer_b",
-                    "value": 0
-                  },
-                  {
-                    "type": "variable_if",
-                    "name": "hyper_sublayer_w",
-                    "value": 0
-                  },
-                  {
-                    "type": "variable_if",
-                    "name": "hyper_sublayer_u",
-                    "value": 0
-                  },
-                  {
-                    "type": "variable_if",
-                    "name": "hyper_sublayer_d",
-                    "value": 0
-                  },
-                  {
-                    "type": "variable_if",
-                    "name": "hyper_sublayer_x",
-                    "value": 0
-                  },
-                  {
-                    "type": "variable_if",
-                    "name": "hyper_sublayer_delete_or_backspace",
-                    "value": 0
-                  }
-                ]
-              }
-            ]
-          },
-          {
-            "description": "Home row mods (GACS) - ⌘ ⌥ ⌃ ⇧ on asdf / ;lkj",
-            "manipulators": [
-              {
-                "from": {
-                  "simultaneous": [
-                    {
-                      "key_code": "a"
-                    },
-                    {
-                      "key_code": "s"
-                    },
-                    {
-                      "key_code": "d"
-                    },
-                    {
-                      "key_code": "f"
-                    }
-                  ]
-                },
-                "to_if_held_down": [
-                  {
-                    "key_code": "left_command",
-                    "modifiers": [
-                      "left_option",
-                      "left_control",
-                      "left_shift"
-                    ]
-                  }
-                ],
-                "type": "basic"
-              },
-              {
-                "from": {
-                  "simultaneous": [
-                    {
-                      "key_code": "s"
-                    },
-                    {
-                      "key_code": "d"
-                    },
-                    {
-                      "key_code": "f"
-                    }
-                  ]
-                },
-                "to_if_held_down": [
-                  {
-                    "key_code": "left_option",
-                    "modifiers": [
-                      "left_control",
-                      "left_shift"
-                    ]
-                  }
-                ],
-                "type": "basic"
-              },
-              {
-                "from": {
-                  "simultaneous": [
-                    {
-                      "key_code": "a"
-                    },
-                    {
-                      "key_code": "d"
-                    },
-                    {
-                      "key_code": "f"
-                    }
-                  ]
-                },
-                "to_if_held_down": [
-                  {
-                    "key_code": "left_command",
-                    "modifiers": [
-                      "left_control",
-                      "left_shift"
-                    ]
-                  }
-                ],
-                "type": "basic"
-              },
-              {
-                "from": {
-                  "simultaneous": [
-                    {
-                      "key_code": "a"
-                    },
-                    {
-                      "key_code": "s"
-                    },
-                    {
-                      "key_code": "f"
-                    }
-                  ]
-                },
-                "to_if_held_down": [
-                  {
-                    "key_code": "left_command",
-                    "modifiers": [
-                      "left_option",
-                      "left_shift"
-                    ]
-                  }
-                ],
-                "type": "basic"
-              },
-              {
-                "from": {
-                  "simultaneous": [
-                    {
-                      "key_code": "a"
-                    },
-                    {
-                      "key_code": "s"
-                    },
-                    {
-                      "key_code": "d"
-                    }
-                  ]
-                },
-                "to_if_held_down": [
-                  {
-                    "key_code": "left_command",
-                    "modifiers": [
-                      "left_option",
-                      "left_control"
-                    ]
-                  }
-                ],
-                "type": "basic"
-              },
-              {
-                "from": {
-                  "simultaneous": [
-                    {
-                      "key_code": "a"
-                    },
-                    {
-                      "key_code": "s"
-                    }
-                  ],
-                  "simultaneous_options": {
-                    "key_down_order": "strict"
-                  }
-                },
-                "to_if_alone": [
-                  {
-                    "key_code": "a"
-                  },
-                  {
-                    "key_code": "s"
-                  }
-                ],
-                "to_if_held_down": [
-                  {
-                    "key_code": "left_command",
-                    "modifiers": [
-                      "left_option"
-                    ]
-                  }
-                ],
-                "type": "basic"
-              },
-              {
-                "from": {
-                  "simultaneous": [
-                    {
-                      "key_code": "a"
-                    },
-                    {
-                      "key_code": "d"
-                    }
-                  ],
-                  "simultaneous_options": {
-                    "key_down_order": "strict"
-                  }
-                },
-                "to_if_alone": [
-                  {
-                    "key_code": "a"
-                  },
-                  {
-                    "key_code": "d"
-                  }
-                ],
-                "to_if_held_down": [
-                  {
-                    "key_code": "left_command",
-                    "modifiers": [
-                      "left_control"
-                    ]
-                  }
-                ],
-                "type": "basic"
-              },
-              {
-                "from": {
-                  "simultaneous": [
-                    {
-                      "key_code": "a"
-                    },
-                    {
-                      "key_code": "f"
-                    }
-                  ],
-                  "simultaneous_options": {
-                    "key_down_order": "strict"
-                  }
-                },
-                "to_if_alone": [
-                  {
-                    "key_code": "a"
-                  },
-                  {
-                    "key_code": "f"
-                  }
-                ],
-                "to_if_held_down": [
-                  {
-                    "key_code": "left_command",
-                    "modifiers": [
-                      "left_shift"
-                    ]
-                  }
-                ],
-                "type": "basic"
-              },
-              {
-                "from": {
-                  "simultaneous": [
-                    {
-                      "key_code": "s"
-                    },
-                    {
-                      "key_code": "a"
-                    }
-                  ],
-                  "simultaneous_options": {
-                    "key_down_order": "strict"
-                  }
-                },
-                "to_if_alone": [
-                  {
-                    "key_code": "s"
-                  },
-                  {
-                    "key_code": "a"
-                  }
-                ],
-                "to_if_held_down": [
-                  {
-                    "key_code": "left_option",
-                    "modifiers": [
-                      "left_command"
-                    ]
-                  }
-                ],
-                "type": "basic"
-              },
-              {
-                "from": {
-                  "simultaneous": [
-                    {
-                      "key_code": "s"
-                    },
-                    {
-                      "key_code": "d"
-                    }
-                  ],
-                  "simultaneous_options": {
-                    "key_down_order": "strict"
-                  }
-                },
-                "to_if_alone": [
-                  {
-                    "key_code": "s"
-                  },
-                  {
-                    "key_code": "d"
-                  }
-                ],
-                "to_if_held_down": [
-                  {
-                    "key_code": "left_option",
-                    "modifiers": [
-                      "left_control"
-                    ]
-                  }
-                ],
-                "type": "basic"
-              },
-              {
-                "from": {
-                  "simultaneous": [
-                    {
-                      "key_code": "s"
-                    },
-                    {
-                      "key_code": "f"
-                    }
-                  ],
-                  "simultaneous_options": {
-                    "key_down_order": "strict"
-                  }
-                },
-                "to_if_alone": [
-                  {
-                    "key_code": "s"
-                  },
-                  {
-                    "key_code": "f"
-                  }
-                ],
-                "to_if_held_down": [
-                  {
-                    "key_code": "left_option",
-                    "modifiers": [
-                      "left_shift"
-                    ]
-                  }
-                ],
-                "type": "basic"
-              },
-              {
-                "from": {
-                  "simultaneous": [
-                    {
-                      "key_code": "d"
-                    },
-                    {
-                      "key_code": "a"
-                    }
-                  ],
-                  "simultaneous_options": {
-                    "key_down_order": "strict"
-                  }
-                },
-                "to_if_alone": [
-                  {
-                    "key_code": "d"
-                  },
-                  {
-                    "key_code": "a"
-                  }
-                ],
-                "to_if_held_down": [
-                  {
-                    "key_code": "left_control",
-                    "modifiers": [
-                      "left_command"
-                    ]
-                  }
-                ],
-                "type": "basic"
-              },
-              {
-                "from": {
-                  "simultaneous": [
-                    {
-                      "key_code": "d"
-                    },
-                    {
-                      "key_code": "s"
-                    }
-                  ],
-                  "simultaneous_options": {
-                    "key_down_order": "strict"
-                  }
-                },
-                "to_if_alone": [
-                  {
-                    "key_code": "d"
-                  },
-                  {
-                    "key_code": "s"
-                  }
-                ],
-                "to_if_held_down": [
-                  {
-                    "key_code": "left_control",
-                    "modifiers": [
-                      "left_option"
-                    ]
-                  }
-                ],
-                "type": "basic"
-              },
-              {
-                "from": {
-                  "simultaneous": [
-                    {
-                      "key_code": "d"
-                    },
-                    {
-                      "key_code": "f"
-                    }
-                  ],
-                  "simultaneous_options": {
-                    "key_down_order": "strict"
-                  }
-                },
-                "to_if_alone": [
-                  {
-                    "key_code": "d"
-                  },
-                  {
-                    "key_code": "f"
-                  }
-                ],
-                "to_if_held_down": [
-                  {
-                    "key_code": "left_control",
-                    "modifiers": [
-                      "left_shift"
-                    ]
-                  }
-                ],
-                "type": "basic"
-              },
-              {
-                "from": {
-                  "simultaneous": [
-                    {
-                      "key_code": "f"
-                    },
-                    {
-                      "key_code": "a"
-                    }
-                  ],
-                  "simultaneous_options": {
-                    "key_down_order": "strict"
-                  }
-                },
-                "to_if_alone": [
-                  {
-                    "key_code": "f"
-                  },
-                  {
-                    "key_code": "a"
-                  }
-                ],
-                "to_if_held_down": [
-                  {
-                    "key_code": "left_shift",
-                    "modifiers": [
-                      "left_command"
-                    ]
-                  }
-                ],
-                "type": "basic"
-              },
-              {
-                "from": {
-                  "simultaneous": [
-                    {
-                      "key_code": "f"
-                    },
-                    {
-                      "key_code": "s"
-                    }
-                  ],
-                  "simultaneous_options": {
-                    "key_down_order": "strict"
-                  }
-                },
-                "to_if_alone": [
-                  {
-                    "key_code": "f"
-                  },
-                  {
-                    "key_code": "s"
-                  }
-                ],
-                "to_if_held_down": [
-                  {
-                    "key_code": "left_shift",
-                    "modifiers": [
-                      "left_option"
-                    ]
-                  }
-                ],
-                "type": "basic"
-              },
-              {
-                "from": {
-                  "simultaneous": [
-                    {
-                      "key_code": "f"
-                    },
-                    {
-                      "key_code": "d"
-                    }
-                  ],
-                  "simultaneous_options": {
-                    "key_down_order": "strict"
-                  }
-                },
-                "to_if_alone": [
-                  {
-                    "key_code": "f"
-                  },
-                  {
-                    "key_code": "d"
-                  }
-                ],
-                "to_if_held_down": [
-                  {
-                    "key_code": "left_shift",
-                    "modifiers": [
-                      "left_control"
-                    ]
-                  }
-                ],
-                "type": "basic"
-              },
-              {
-                "from": {
-                  "key_code": "a"
-                },
-                "to_delayed_action": {
-                  "to_if_canceled": [
-                    {
-                      "key_code": "a"
-                    }
-                  ],
-                  "to_if_invoked": [
-                    {
-                      "key_code": "vk_none"
-                    }
-                  ]
-                },
-                "to_if_alone": [
-                  {
-                    "halt": true,
-                    "key_code": "a"
-                  }
-                ],
-                "to_if_held_down": [
-                  {
-                    "halt": true,
-                    "key_code": "left_command"
-                  }
-                ],
-                "type": "basic"
-              },
-              {
-                "from": {
-                  "key_code": "s"
-                },
-                "to_delayed_action": {
-                  "to_if_canceled": [
-                    {
-                      "key_code": "s"
-                    }
-                  ],
-                  "to_if_invoked": [
-                    {
-                      "key_code": "vk_none"
-                    }
-                  ]
-                },
-                "to_if_alone": [
-                  {
-                    "halt": true,
-                    "key_code": "s"
-                  }
-                ],
-                "to_if_held_down": [
-                  {
-                    "halt": true,
-                    "key_code": "left_option"
-                  }
-                ],
-                "type": "basic"
-              },
-              {
-                "from": {
-                  "key_code": "d"
-                },
-                "to_delayed_action": {
-                  "to_if_canceled": [
-                    {
-                      "key_code": "d"
-                    }
-                  ],
-                  "to_if_invoked": [
-                    {
-                      "key_code": "vk_none"
-                    }
-                  ]
-                },
-                "to_if_alone": [
-                  {
-                    "halt": true,
-                    "key_code": "d"
-                  }
-                ],
-                "to_if_held_down": [
-                  {
-                    "halt": true,
-                    "key_code": "left_control"
-                  }
-                ],
-                "type": "basic"
-              },
-              {
-                "from": {
-                  "key_code": "f"
-                },
-                "to_delayed_action": {
-                  "to_if_canceled": [
-                    {
-                      "key_code": "f"
-                    }
-                  ],
-                  "to_if_invoked": [
-                    {
-                      "key_code": "vk_none"
-                    }
-                  ]
-                },
-                "to_if_alone": [
-                  {
-                    "halt": true,
-                    "key_code": "f"
-                  }
-                ],
-                "to_if_held_down": [
-                  {
-                    "halt": true,
-                    "key_code": "left_shift"
-                  }
-                ],
-                "type": "basic"
-              },
-              {
-                "from": {
-                  "simultaneous": [
-                    {
-                      "key_code": "semicolon"
-                    },
-                    {
-                      "key_code": "l"
-                    },
-                    {
-                      "key_code": "k"
-                    },
-                    {
-                      "key_code": "j"
-                    }
-                  ]
-                },
-                "to_if_held_down": [
-                  {
-                    "key_code": "left_command",
-                    "modifiers": [
-                      "left_option",
-                      "left_control",
-                      "left_shift"
-                    ]
-                  }
-                ],
-                "type": "basic"
-              },
-              {
-                "from": {
-                  "simultaneous": [
-                    {
-                      "key_code": "l"
-                    },
-                    {
-                      "key_code": "k"
-                    },
-                    {
-                      "key_code": "j"
-                    }
-                  ]
-                },
-                "to_if_held_down": [
-                  {
-                    "key_code": "left_option",
-                    "modifiers": [
-                      "left_control",
-                      "left_shift"
-                    ]
-                  }
-                ],
-                "type": "basic"
-              },
-              {
-                "from": {
-                  "simultaneous": [
-                    {
-                      "key_code": "semicolon"
-                    },
-                    {
-                      "key_code": "k"
-                    },
-                    {
-                      "key_code": "j"
-                    }
-                  ]
-                },
-                "to_if_held_down": [
-                  {
-                    "key_code": "left_command",
-                    "modifiers": [
-                      "left_control",
-                      "left_shift"
-                    ]
-                  }
-                ],
-                "type": "basic"
-              },
-              {
-                "from": {
-                  "simultaneous": [
-                    {
-                      "key_code": "semicolon"
-                    },
-                    {
-                      "key_code": "l"
-                    },
-                    {
-                      "key_code": "j"
-                    }
-                  ]
-                },
-                "to_if_held_down": [
-                  {
-                    "key_code": "left_command",
-                    "modifiers": [
-                      "left_option",
-                      "left_shift"
-                    ]
-                  }
-                ],
-                "type": "basic"
-              },
-              {
-                "from": {
-                  "simultaneous": [
-                    {
-                      "key_code": "semicolon"
-                    },
-                    {
-                      "key_code": "l"
-                    },
-                    {
-                      "key_code": "k"
-                    }
-                  ]
-                },
-                "to_if_held_down": [
-                  {
-                    "key_code": "left_command",
-                    "modifiers": [
-                      "left_option",
-                      "left_control"
-                    ]
-                  }
-                ],
-                "type": "basic"
-              },
-              {
-                "from": {
-                  "simultaneous": [
-                    {
-                      "key_code": "semicolon"
-                    },
-                    {
-                      "key_code": "l"
-                    }
-                  ],
-                  "simultaneous_options": {
-                    "key_down_order": "strict"
-                  }
-                },
-                "to_if_alone": [
-                  {
-                    "key_code": "semicolon"
-                  },
-                  {
-                    "key_code": "l"
-                  }
-                ],
-                "to_if_held_down": [
-                  {
-                    "key_code": "left_command",
-                    "modifiers": [
-                      "left_option"
-                    ]
-                  }
-                ],
-                "type": "basic"
-              },
-              {
-                "from": {
-                  "simultaneous": [
-                    {
-                      "key_code": "semicolon"
-                    },
-                    {
-                      "key_code": "k"
-                    }
-                  ],
-                  "simultaneous_options": {
-                    "key_down_order": "strict"
-                  }
-                },
-                "to_if_alone": [
-                  {
-                    "key_code": "semicolon"
-                  },
-                  {
-                    "key_code": "k"
-                  }
-                ],
-                "to_if_held_down": [
-                  {
-                    "key_code": "left_command",
-                    "modifiers": [
-                      "left_control"
-                    ]
-                  }
-                ],
-                "type": "basic"
-              },
-              {
-                "from": {
-                  "simultaneous": [
-                    {
-                      "key_code": "semicolon"
-                    },
-                    {
-                      "key_code": "j"
-                    }
-                  ],
-                  "simultaneous_options": {
-                    "key_down_order": "strict"
-                  }
-                },
-                "to_if_alone": [
-                  {
-                    "key_code": "semicolon"
-                  },
-                  {
-                    "key_code": "j"
-                  }
-                ],
-                "to_if_held_down": [
-                  {
-                    "key_code": "left_command",
-                    "modifiers": [
-                      "left_shift"
-                    ]
-                  }
-                ],
-                "type": "basic"
-              },
-              {
-                "from": {
-                  "simultaneous": [
-                    {
-                      "key_code": "l"
-                    },
-                    {
-                      "key_code": "semicolon"
-                    }
-                  ],
-                  "simultaneous_options": {
-                    "key_down_order": "strict"
-                  }
-                },
-                "to_if_alone": [
-                  {
-                    "key_code": "l"
-                  },
-                  {
-                    "key_code": "semicolon"
-                  }
-                ],
-                "to_if_held_down": [
-                  {
-                    "key_code": "left_option",
-                    "modifiers": [
-                      "left_command"
-                    ]
-                  }
-                ],
-                "type": "basic"
-              },
-              {
-                "from": {
-                  "simultaneous": [
-                    {
-                      "key_code": "l"
-                    },
-                    {
-                      "key_code": "k"
-                    }
-                  ],
-                  "simultaneous_options": {
-                    "key_down_order": "strict"
-                  }
-                },
-                "to_if_alone": [
-                  {
-                    "key_code": "l"
-                  },
-                  {
-                    "key_code": "k"
-                  }
-                ],
-                "to_if_held_down": [
-                  {
-                    "key_code": "left_option",
-                    "modifiers": [
-                      "left_control"
-                    ]
-                  }
-                ],
-                "type": "basic"
-              },
-              {
-                "from": {
-                  "simultaneous": [
-                    {
-                      "key_code": "l"
-                    },
-                    {
-                      "key_code": "j"
-                    }
-                  ],
-                  "simultaneous_options": {
-                    "key_down_order": "strict"
-                  }
-                },
-                "to_if_alone": [
-                  {
-                    "key_code": "l"
-                  },
-                  {
-                    "key_code": "j"
-                  }
-                ],
-                "to_if_held_down": [
-                  {
-                    "key_code": "left_option",
-                    "modifiers": [
-                      "left_shift"
-                    ]
-                  }
-                ],
-                "type": "basic"
-              },
-              {
-                "from": {
-                  "simultaneous": [
-                    {
-                      "key_code": "k"
-                    },
-                    {
-                      "key_code": "semicolon"
-                    }
-                  ],
-                  "simultaneous_options": {
-                    "key_down_order": "strict"
-                  }
-                },
-                "to_if_alone": [
-                  {
-                    "key_code": "k"
-                  },
-                  {
-                    "key_code": "semicolon"
-                  }
-                ],
-                "to_if_held_down": [
-                  {
-                    "key_code": "left_control",
-                    "modifiers": [
-                      "left_command"
-                    ]
-                  }
-                ],
-                "type": "basic"
-              },
-              {
-                "from": {
-                  "simultaneous": [
-                    {
-                      "key_code": "k"
-                    },
-                    {
-                      "key_code": "l"
-                    }
-                  ],
-                  "simultaneous_options": {
-                    "key_down_order": "strict"
-                  }
-                },
-                "to_if_alone": [
-                  {
-                    "key_code": "k"
-                  },
-                  {
-                    "key_code": "l"
-                  }
-                ],
-                "to_if_held_down": [
-                  {
-                    "key_code": "left_control",
-                    "modifiers": [
-                      "left_option"
-                    ]
-                  }
-                ],
-                "type": "basic"
-              },
-              {
-                "from": {
-                  "simultaneous": [
-                    {
-                      "key_code": "k"
-                    },
-                    {
-                      "key_code": "j"
-                    }
-                  ],
-                  "simultaneous_options": {
-                    "key_down_order": "strict"
-                  }
-                },
-                "to_if_alone": [
-                  {
-                    "key_code": "k"
-                  },
-                  {
-                    "key_code": "j"
-                  }
-                ],
-                "to_if_held_down": [
-                  {
-                    "key_code": "left_control",
-                    "modifiers": [
-                      "left_shift"
-                    ]
-                  }
-                ],
-                "type": "basic"
-              },
-              {
-                "from": {
-                  "simultaneous": [
-                    {
-                      "key_code": "j"
-                    },
-                    {
-                      "key_code": "semicolon"
-                    }
-                  ],
-                  "simultaneous_options": {
-                    "key_down_order": "strict"
-                  }
-                },
-                "to_if_alone": [
-                  {
-                    "key_code": "j"
-                  },
-                  {
-                    "key_code": "semicolon"
-                  }
-                ],
-                "to_if_held_down": [
-                  {
-                    "key_code": "left_shift",
-                    "modifiers": [
-                      "left_command"
-                    ]
-                  }
-                ],
-                "type": "basic"
-              },
-              {
-                "from": {
-                  "simultaneous": [
-                    {
-                      "key_code": "j"
-                    },
-                    {
-                      "key_code": "l"
-                    }
-                  ],
-                  "simultaneous_options": {
-                    "key_down_order": "strict"
-                  }
-                },
-                "to_if_alone": [
-                  {
-                    "key_code": "j"
-                  },
-                  {
-                    "key_code": "l"
-                  }
-                ],
-                "to_if_held_down": [
-                  {
-                    "key_code": "left_shift",
-                    "modifiers": [
-                      "left_option"
-                    ]
-                  }
-                ],
-                "type": "basic"
-              },
-              {
-                "from": {
-                  "simultaneous": [
-                    {
-                      "key_code": "j"
-                    },
-                    {
-                      "key_code": "k"
-                    }
-                  ],
-                  "simultaneous_options": {
-                    "key_down_order": "strict"
-                  }
-                },
-                "to_if_alone": [
-                  {
-                    "key_code": "j"
-                  },
-                  {
-                    "key_code": "k"
-                  }
-                ],
-                "to_if_held_down": [
-                  {
-                    "key_code": "left_shift",
-                    "modifiers": [
-                      "left_control"
-                    ]
-                  }
-                ],
-                "type": "basic"
-              },
-              {
-                "from": {
-                  "key_code": "semicolon"
-                },
-                "to_delayed_action": {
-                  "to_if_canceled": [
-                    {
-                      "key_code": "semicolon"
-                    }
-                  ],
-                  "to_if_invoked": [
-                    {
-                      "key_code": "vk_none"
-                    }
-                  ]
-                },
-                "to_if_alone": [
-                  {
-                    "halt": true,
-                    "key_code": "semicolon"
-                  }
-                ],
-                "to_if_held_down": [
-                  {
-                    "halt": true,
-                    "key_code": "left_command"
-                  }
-                ],
-                "type": "basic"
-              },
-              {
-                "from": {
-                  "key_code": "l"
-                },
-                "to_delayed_action": {
-                  "to_if_canceled": [
-                    {
-                      "key_code": "l"
-                    }
-                  ],
-                  "to_if_invoked": [
-                    {
-                      "key_code": "vk_none"
-                    }
-                  ]
-                },
-                "to_if_alone": [
-                  {
-                    "halt": true,
-                    "key_code": "l"
-                  }
-                ],
-                "to_if_held_down": [
-                  {
-                    "halt": true,
-                    "key_code": "left_option"
-                  }
-                ],
-                "type": "basic"
-              },
-              {
-                "from": {
-                  "key_code": "k"
-                },
-                "to_delayed_action": {
-                  "to_if_canceled": [
-                    {
-                      "key_code": "k"
-                    }
-                  ],
-                  "to_if_invoked": [
-                    {
-                      "key_code": "vk_none"
-                    }
-                  ]
-                },
-                "to_if_alone": [
-                  {
-                    "halt": true,
-                    "key_code": "k"
-                  }
-                ],
-                "to_if_held_down": [
-                  {
-                    "halt": true,
-                    "key_code": "left_control"
-                  }
-                ],
-                "type": "basic"
-              },
-              {
-                "from": {
-                  "key_code": "j"
-                },
-                "to_delayed_action": {
-                  "to_if_canceled": [
-                    {
-                      "key_code": "j"
-                    }
-                  ],
-                  "to_if_invoked": [
-                    {
-                      "key_code": "vk_none"
-                    }
-                  ]
-                },
-                "to_if_alone": [
-                  {
-                    "halt": true,
-                    "key_code": "j"
-                  }
-                ],
-                "to_if_held_down": [
-                  {
-                    "halt": true,
-                    "key_code": "left_shift"
-                  }
-                ],
-                "type": "basic"
-              }
-            ]
-          }
-        ]
-      }
-    }
-  ]
+    ]
 }
