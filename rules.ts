@@ -2,90 +2,35 @@ import fs from "fs";
 import {
   Device,
   KarabinerRules,
-  Manipulator,
   Parameters,
-  To,
   VirtualHidKeyboard,
 } from "./types";
 import { createHyperSubLayers, app, open, window, shell } from "./utils";
 
-// GACS home row mods: pinky = ⌘, ring = ⌥, middle = ⌃, index = ⇧
-const HOME_ROW_MODS = [
-  { a: "left_command", s: "left_option", d: "left_control", f: "left_shift" },
-  {
-    semicolon: "left_command",
-    l: "left_option",
-    k: "left_control",
-    j: "left_shift",
-  },
-] as const;
-
-function homeRowMods(): KarabinerRules {
-  const manipulators: Manipulator[] = [];
-
-  for (const hand of HOME_ROW_MODS) {
-    const keys = Object.keys(hand) as (keyof typeof hand)[];
-    const mod = (key: string) => hand[key as keyof typeof hand];
-
-    const held = (combo: string[]): To[] => {
-      const [first, ...rest] = combo.map(mod);
-      return [rest.length ? { key_code: first, modifiers: rest } : { key_code: first }];
-    };
-
-    // All four fingers, then every triple, then every pair, then singles.
-    // Karabiner matches top-down, so the widest combos have to come first.
-    manipulators.push({
-      from: { simultaneous: keys.map((key_code) => ({ key_code })) },
-      to_if_held_down: held(keys),
-      type: "basic",
-    });
-
-    for (const dropped of keys) {
-      const combo = keys.filter((key) => key !== dropped);
-      manipulators.push({
-        from: { simultaneous: combo.map((key_code) => ({ key_code })) },
-        to_if_held_down: held(combo),
-        type: "basic",
-      });
-    }
-
-    for (const first of keys) {
-      for (const second of keys) {
-        if (first === second) continue;
-        manipulators.push({
-          from: {
-            simultaneous: [{ key_code: first }, { key_code: second }],
-            simultaneous_options: { key_down_order: "strict" },
-          },
-          to_if_alone: [{ key_code: first }, { key_code: second }],
-          to_if_held_down: held([first, second]),
-          type: "basic",
-        });
-      }
-    }
-
-    for (const key of keys) {
-      manipulators.push({
-        from: { key_code: key },
-        to_delayed_action: {
-          to_if_canceled: [{ key_code: key }],
-          to_if_invoked: [{ key_code: "vk_none" }],
-        },
-        to_if_alone: [{ halt: true, key_code: key }],
-        to_if_held_down: [{ halt: true, key_code: mod(key) }],
-        type: "basic",
-      });
-    }
-  }
-
-  return {
-    description: "Home row mods (GACS) - ⌘ ⌥ ⌃ ⇧ on asdf / ;lkj",
-    manipulators,
-  };
-}
-
-
 const rules: KarabinerRules[] = [
+  // Escape hatch: Hyper swallows caps_lock, so keep a way to toggle the real
+  // Caps Lock state. Must come before the Hyper rule (first match wins).
+  {
+    description: "Shift + Caps Lock -> Caps Lock",
+    manipulators: [
+      {
+        type: "basic",
+        from: { key_code: "caps_lock", modifiers: { mandatory: ["shift"] } },
+        to: [{ key_code: "caps_lock" }],
+      },
+    ],
+  },
+  // Escape lives on Caps Lock (tap), so the physical Esc key toggles Caps Lock.
+  {
+    description: "Esc -> Caps Lock",
+    manipulators: [
+      {
+        type: "basic",
+        from: { key_code: "escape", modifiers: { optional: ["any"] } },
+        to: [{ key_code: "caps_lock" }],
+      },
+    ],
+  },
   // Define the Hyper key itself
   {
     description: "Hyper Key (⌃⌥⇧⌘)",
@@ -161,7 +106,6 @@ const rules: KarabinerRules[] = [
       description: "Delete to line start",
     },
   }),
-  homeRowMods(),
 ];
 
 const parameters: Parameters = {
@@ -169,7 +113,6 @@ const parameters: Parameters = {
   "basic.to_if_held_down_threshold_milliseconds": 125,
   "basic.to_delayed_action_delay_milliseconds": 200,
   "basic.simultaneous_threshold_milliseconds": 100,
-  "mouse_motion_to_scroll.speed": 100,
 };
 
 const virtual_hid_keyboard: VirtualHidKeyboard = {
@@ -179,7 +122,6 @@ const virtual_hid_keyboard: VirtualHidKeyboard = {
 const devices: Device[] = [
   {
     identifiers: { is_keyboard: true, vendor_id: 13364, product_id: 53296 },
-    disable_built_in_keyboard_if_exists: true,
     ignore_vendor_events: true,
   },
   {
@@ -194,8 +136,7 @@ const devices: Device[] = [
       vendor_id: 14000,
       product_id: 12292,
     },
-    disable_built_in_keyboard_if_exists: true,
-    ignore: false,
+    ignore: true,
     ignore_vendor_events: true,
   },
 ];
